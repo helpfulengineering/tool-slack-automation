@@ -19,3 +19,5 @@ Most activity occurs on other channels. Feel free to browse and join channels to
 _Pro-tip: Start your search with “#project-” to see all the on-going projects. “#skill-” let’s you join channels with people of a particular skill set. “#discussion-” shows all the various discussions - they’re a great source of information._
 
 If you have any further questions about getting started, please reply to this thread and myself or another moderator :moderator:  will be glad to assist.
+
+*You might be interested in joining these channels: {channels}*
