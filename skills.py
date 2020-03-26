@@ -26,13 +26,13 @@ def search(skills, corpus):
         process.join()
 
     # Return a list of channels sorted by interest: [[name, weight]...]
-    return sorted([pipe.recv() for pipe in pipes], key=lambda item: item[1])
+    return sorted([pipe.recv() for pipe in pipes], key=lambda item: item[1], reverse=True)
 
 
 def tokenize(text):
     """Returns a list of skill tokens (strings) for a given text."""
     import re  # Moved here the import because this code should change soon
-    return re.findall(r"[\w']+", text)
+    return re.findall(r"[\w']+", text.casefold())
 
 
 def recommend(introduction, corpus, limit=5):
