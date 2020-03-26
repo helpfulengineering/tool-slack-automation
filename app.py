@@ -1,49 +1,43 @@
 #!/usr/bin/env python3
 
+import boto3
 import os
+import json
 from slack import WebClient
+from slackeventsapi import SlackEventAdapter
 from flask import Flask, request, make_response, Response
 
-slack_client = WebClient(os.environ["SLACK_BOT_TOKEN"])
+def get_secrets():
+    sm_client = boto3.client("secretsmanager")
+    secret_value_response = sm_client.get_secret_value(SecretId=os.environ['SECRET_ARN'])
+    tokens = json.loads(secret_value_response['SecretString'])
+    return tokens
+
+bot_user_id = os.environ['BOT_USER_ID']
+slack_secrets = get_secrets()
+slack_client = WebClient(slack_secrets['apiToken'])
 app = Flask(__name__)
+slack_events_adapter = SlackEventAdapter(slack_secrets['signingSecret'], "/listening", app)
 
+@slack_events_adapter.on("message")
+def answer_message(event_data):
+    event = event_data["event"]
+    #ignore messages in threads and from bots
+    if 'thread_ts' not in event and 'bot_profile' not in event:
+        text = event["text"].casefold()
+        answer = f"Hello. You've submitted this text: {text}"
 
-def answer_message(event):
-    if not "user" in event or "edited" in event or event["channel"] != CHANNEL:
-        return  # Exclude global events, editions and messages outside CHANNEL
-    user = slack_client.api_call("users.info", user=event["user"])["user"]
-    text = event["text"].casefold()
-    answer = f"Hello, {user['real_name']}. You've submitted this text: {text}"
-
-    slack_client.api_call(
-        "chat.postEphemeral",
-        channel=os.environ["SLACK_CHANNEL"],  # "CUXD81R6X" == #introductions
-        user=event["user"],
-        link_names=True,
-        text=answer,
-        )
+        slack_client.chat_postMessage(
+            channel=event["channel"],
+            link_names=True,
+            text=answer,
+            thread_ts=event["ts"]
+            )
 
 
 @app.errorhandler(404)
 def not_found(error):
     return Response("404")
-
-
-@app.route("/listening", methods=["GET", "POST"])
-def listening():
-    data = request.get_json()
-
-    if "challenge" in data:
-        return Response(data["challenge"], mimetype="application/json")
-    elif data["token"] != os.environ["SLACK_VERIFICATION_TOKEN"]:
-        return make_response("", 403)
-
-    if data["event"]["type"] == "message":
-        answer_message(data["event"])
-        return make_response("", 200)
-    else:
-        return make_response("", 500)
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=4444)

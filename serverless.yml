@@ -3,22 +3,31 @@ service: introductions-bot
 plugins:
   - serverless-python-requirements
   - serverless-wsgi
-
 custom:
   wsgi:
     app: app.app
     packRequirements: false
   pythonRequirements:
     dockerizePip: true
+
 provider:
   name: aws
   runtime: python3.6
   stage: dev
   region: us-east-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "secretsmanager:GetSecretValue"
+      Resource:
+        - ${file(./local_config.yml):tokenSecretArn}
 
 functions:
   app:
     handler: wsgi.handler
+    memorySize: 128
     events:
-      - http: ANY /
-      - http: 'ANY {proxy+}'
+      - httpApi: GET /listening
+      - httpApi: POST /listening
+    environment:
+      SECRET_ARN: ${file(./local_config.yml):tokenSecretArn}
