@@ -32,8 +32,9 @@ def answer_message(event_data):
     if 'thread_ts' in event or 'bot_profile' in event or 'text' not in event:
         return
     with open(Path(__file__).parent / "welcome.md", "r") as welcome_message:
+        recommendations = "" # skills.recommend(event["text"], corpus)
         slack_client.chat_postMessage(
-            text=welcome_message.read() + skills.recommend(event["text"]),
+            text=welcome_message.read() + recommendations
             channel=event["channel"],
             thread_ts=event["ts"],
             link_names=True
