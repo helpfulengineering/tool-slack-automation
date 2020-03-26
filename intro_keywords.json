@@ -1,6 +1,6 @@
 {
 "skill-software-devops": ["AWS", "GCP", "Azure", "devops", "cloud", "infrastructure", "database", "kubernetes", "MongoDB", "Docker", "Terraform", "CloudFormation", "Airtable", "SRE", "Odoo"],
 "skill-software-backend": ["computer", "software", "backend", "developer", "node", "kubernetes", "openshift", "PHP"],
-"skill-software-datascience": ["computer", "machine learning", "artificial intelligence", "AI", "ML", "data analysis", "data science", ],
-"skill-software-frontend": ["computer", "software", "web", "UI", "UX", "web-dev", "angular", "bootstrap", "CSS", "HTML", "javascript", "js", "react", "redux", ]
+"skill-software-datascience": ["computer", "machine learning", "artificial intelligence", "AI", "ML", "data analysis", "data science"],
+"skill-software-frontend": ["computer", "software", "web", "UI", "UX", "web-dev", "angular", "bootstrap", "CSS", "HTML", "javascript", "js", "react", "redux"]
 }
