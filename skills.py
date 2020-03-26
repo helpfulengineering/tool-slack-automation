@@ -25,7 +25,8 @@ def search(skills, corpus):
     for process in processes:
         process.join()
 
-    channels = [pipe.recv() for pipe in pipes].sort(
+    channels = sorted(
+        [pipe.recv() for pipe in pipes],
         key=lambda item: item[1],
         reverse=True
         )
