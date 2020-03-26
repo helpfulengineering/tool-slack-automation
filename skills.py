@@ -25,8 +25,12 @@ def search(skills, corpus):
     for process in processes:
         process.join()
 
-    # Return a list of channels sorted by interest: [[name, weight]...]
-    return sorted([pipe.recv() for pipe in pipes], key=lambda item: item[1], reverse=True)
+    channels = [pipe.recv() for pipe in pipes].sort(
+        key=lambda item: item[1],
+        reverse=True
+        )
+
+    return filter(lambda item: item[1], channels)  
 
 
 def tokenize(text):
