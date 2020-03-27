@@ -1,21 +1,26 @@
 from multiprocessing import Process, Pipe
+import re
 
 
-def match(pipe, channel, skills, terms):
+def match(pipe, channel, text, skills):
     """Match skill tokens to terms in a channel corpus."""
-    weight = sum([1 for token in skills if token in terms]) / len(terms)
-    pipe.send([channel, weight])
+    weights = sum([
+        1 for skill, weight in skills.items()
+        if f" {skill} " in text
+        ])
+    pipe.send([channel, weights / len(skills)])
     pipe.close()
 
 
-def search(skills, corpus):
+def search(text, corpus):
     """Search a list of skill tokens in each of the corpus channels."""
+    text = " " + re.sub(r"[,.;@#?!&\n\t\r_-]+\s*", " ", text.casefold()) + " "
     processes = []
     pipes = []
 
-    for channel, terms in corpus.items():
+    for channel, skills in corpus.items():
         parent_pipe, child_pipe = Pipe()
-        arguments = (child_pipe, channel, skills, terms)
+        arguments = (child_pipe, channel, text, skills)
         process = Process(target=match, args=arguments)
         processes.append(process)
         pipes.append(parent_pipe)
@@ -31,16 +36,11 @@ def search(skills, corpus):
         reverse=True
         )
 
-    return filter(lambda item: item[1], channels)  
-
-
-def tokenize(text):
-    """Returns a list of skill tokens (strings) for a given text."""
-    import re  # Moved here the import because this code should change soon
-    return re.findall(r"[\w']+", text.casefold())
+    return list(filter(lambda item: item[1], channels))
 
 
 def recommend(introduction, corpus, limit=5):
     """Recommends a list of interesting channels."""
-    channels = search(tokenize(introduction), corpus)
+    channels = search(introduction, corpus)
+    print(channels)
     return " ".join([f"#{channel[0]}" for channel in channels][:limit])
