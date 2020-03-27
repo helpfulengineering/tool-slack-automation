@@ -27,7 +27,7 @@ functions:
     handler: wsgi.handler
     memorySize: 128
     events:
-      - httpApi: GET /listening
-      - httpApi: POST /listening
+      - httpApi: GET /
+      - httpApi: POST /
     environment:
       SECRET_ARN: ${file(./local_config.yml):tokenSecretArn}
