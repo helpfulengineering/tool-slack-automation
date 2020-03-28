@@ -4,7 +4,7 @@ def match(text, skills):
     return sum([
         weight for skill, weight in skills.items()
         if f" {skill} " in f" {text} "
-        ])
+        ]) / len(skills)
 
 
 def search(text, corpus):
