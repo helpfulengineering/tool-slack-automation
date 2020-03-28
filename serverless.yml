@@ -3,12 +3,16 @@ service: introductions-bot
 plugins:
   - serverless-python-requirements
   - serverless-wsgi
+  - serverless-prune-plugin
 custom:
   wsgi:
     app: app.app
     packRequirements: false
   pythonRequirements:
     dockerizePip: true
+
+exclude:
+  - virtual_environment/**
 
 provider:
   name: aws

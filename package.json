@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "serverless-prune-plugin": "^1.4.2",
     "serverless-python-requirements": "^5.1.0",
     "serverless-wsgi": "^1.7.4"
   }
