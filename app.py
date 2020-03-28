@@ -11,15 +11,15 @@ from flask import Flask, request, make_response, Response
 
 
 def get_secrets():
+    secret_arn = os.environ['SECRET_ARN']
     sm_client = boto3.client("secretsmanager")
-    secret_value_response = sm_client.get_secret_value(SecretId=os.environ['SECRET_ARN'])
+    secret_value_response = sm_client.get_secret_value(SecretId=secret_arn)
     tokens = json.loads(secret_value_response['SecretString'])
     return tokens
 
 slack_secrets = get_secrets()
 slack_api_token = slack_secrets['apiToken']
 slack_signing_secret =slack_secrets['signingSecret']
-
 
 app = Flask(__name__)
 slack_client = WebClient(slack_api_token)
@@ -53,12 +53,9 @@ def handle_event(event_data):
     return
 
 @app.before_request
-def check_if_retry():
-    if int(request.headers.get('X-Slack-Retry-Num', '0')) > 0:
+def skip_retry():
+    if int(request.headers.get('X-Slack-Retry-Num', '0')):
         return make_response('', 200)
-    else:
-        return None
-
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=4444)  # FIXME: should be 80 on production
+    app.run(host="0.0.0.0", port=4444)
