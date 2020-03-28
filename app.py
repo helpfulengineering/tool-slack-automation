@@ -30,12 +30,8 @@ with open(Path(__file__).parent / "data" / "template.md", "r") as template_file:
 with open(Path(__file__).parent / "data" / "corpus.json", "r") as corpus_file:
     corpus = json.load(corpus_file)
 
-
-@slack_event_adapter.on("message")
 def answer_message(event_data):
     event = event_data["event"]
-    if event["channel"] != "CUXD81R6X":  # FIXME: hardcoded
-        return
     if 'bot_profile' in event:
         return
     if 'thread_ts' in event:
@@ -50,6 +46,18 @@ def answer_message(event_data):
         link_names=True,
         text=message
         )
+
+@slack_event_adapter.on("message")
+def handle_event(event_data):
+    answer_message(event_data)
+    return
+
+@app.before_request
+def check_if_retry():
+    if int(request.headers.get('X-Slack-Retry-Num', '0')) > 0:
+        return make_response('', 200)
+    else:
+        return None
 
 
 if __name__ == "__main__":
