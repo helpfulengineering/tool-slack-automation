@@ -25,6 +25,9 @@ provider:
         - "secretsmanager:GetSecretValue"
       Resource:
         - ${file(./local_config.yml):tokenSecretArn}
+  stackTags:
+    owner: "skill-software-devops"
+    application: "introductions-bot"
 
 functions:
   app:
