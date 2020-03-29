@@ -3,7 +3,7 @@
 import os
 import json
 import boto3
-import skills
+import matcher
 from pathlib import Path
 from slack import WebClient
 from slackeventsapi import SlackEventAdapter
@@ -27,8 +27,8 @@ slack_event_adapter = SlackEventAdapter(slack_signing_secret, "/", app)
 
 with open(Path(__file__).parent / "data" / "template.md", "r") as template_file:
     message_template = template_file.read()
-with open(Path(__file__).parent / "data" / "corpus.json", "r") as corpus_file:
-    corpus = json.load(corpus_file)
+with open(Path(__file__).parent / "data" / "model.json", "r") as model_file:
+    model = json.load(model_file)
 
 def answer_message(event_data):
     event = event_data["event"]
@@ -38,8 +38,10 @@ def answer_message(event_data):
         return
     if 'text' not in event:
         return
-    channels = skills.recommend(event["text"], corpus, limit=3)
-    message = message_template.format(channels = channels)
+    suggestion = "*You might be interested in joining these channels: {}*"
+    channels = matcher.recommend_channels(model, event["text"], limit=3)
+    channels = " ".join(channels) if channels else ""
+    message = message_template.format(suggestion=suggestion.format(channels))
     slack_client.chat_postMessage(
         channel=event["channel"],
         thread_ts=event["ts"],
