@@ -37,7 +37,7 @@ def recommend_channels(model, text, limit=5):
         for channel, channel_categories in model["channels"].items()
         }
     return [
-        channel for channel, weight in sorted(
+        "#" + channel for channel, weight in sorted(
             recommendations.items(), reverse=True, key=lambda item: item[1]
             )
         if weight
