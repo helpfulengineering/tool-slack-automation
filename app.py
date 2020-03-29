@@ -40,8 +40,8 @@ def answer_message(event_data):
         return
     suggestion = "*You might be interested in joining these channels: {}*"
     channels = matcher.recommend_channels(model, event["text"], limit=3)
-    channels = " ".join(channels) if channels else ""
-    message = message_template.format(suggestion=suggestion.format(channels))
+    channels = suggestion.format(" ".join(channels)) if channels else ""
+    message = message_template.format(suggestion=channels)
     slack_client.chat_postMessage(
         channel=event["channel"],
         thread_ts=event["ts"],
