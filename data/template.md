@@ -20,4 +20,4 @@ _Pro-tip: Start your search with “#project-” to see all the on-going project
 
 If you have any further questions about getting started, please reply to this thread and myself or another moderator :moderator:  will be glad to assist.
 
-{channels}
+{suggestion}
