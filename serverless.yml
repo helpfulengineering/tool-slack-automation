@@ -10,15 +10,14 @@ custom:
     packRequirements: false
   pythonRequirements:
     dockerizePip: true
-
-exclude:
-  - virtual_environment/**
-
+  
 provider:
   name: aws
   runtime: python3.6
   stage: dev
   region: us-east-1
+  environment:
+    STAGE: ${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -28,17 +27,7 @@ provider:
   stackTags:
     owner: "skill-software-devops"
     application: "introductions-bot"
-    
- provider:
-  name: aws
-  runtime: python3.6
-  stage: test
-  region: us-east-1
-  environment:
-    STAGE: "test"
-  stackTags:
-    owner: "skill-software-devops"
-    application: "introductions-bot"
+
 
 functions:
   app:
