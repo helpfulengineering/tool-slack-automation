@@ -2,27 +2,18 @@
 
 import os
 import json
-import boto3
+import config
 import matcher
 from pathlib import Path
-from slack import WebClient
 from slackeventsapi import SlackEventAdapter
 from flask import Flask, request, make_response, Response
 
-
-def get_secrets():
-    secret_arn = os.environ['SECRET_ARN']
-    sm_client = boto3.client("secretsmanager")
-    secret_value_response = sm_client.get_secret_value(SecretId=secret_arn)
-    tokens = json.loads(secret_value_response['SecretString'])
-    return tokens
-
-slack_secrets = get_secrets()
+slack_secrets = config.get_secrets()
 slack_api_token = slack_secrets['apiToken']
 slack_signing_secret =slack_secrets['signingSecret']
 
 app = Flask(__name__)
-slack_client = WebClient(slack_api_token)
+slack_client = config.get_slack_client(slack_api_token)
 slack_event_adapter = SlackEventAdapter(slack_signing_secret, "/", app)
 
 with open(Path(__file__).parent / "data" / "template.md", "r") as template_file:
