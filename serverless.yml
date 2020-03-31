@@ -16,8 +16,6 @@ provider:
   runtime: python3.6
   stage: dev
   region: us-east-1
-  environment:
-    STAGE: ${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -30,10 +28,11 @@ provider:
 
 functions:
   app:
-    handler: wsgi.handler
+    handler: wsgi_handler.handler
     memorySize: 128
     events:
       - httpApi: GET /
       - httpApi: POST /
     environment:
+      STAGE: ${opt:stage, self:provider.stage}
       SECRET_ARN: ${file(./local_config.yml):tokenSecretArn}
