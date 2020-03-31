@@ -28,6 +28,17 @@ provider:
   stackTags:
     owner: "skill-software-devops"
     application: "introductions-bot"
+    
+ provider:
+  name: aws
+  runtime: python3.6
+  stage: test
+  region: us-east-1
+  environment:
+    STAGE: "test"
+  stackTags:
+    owner: "skill-software-devops"
+    application: "introductions-bot"
 
 functions:
   app:
