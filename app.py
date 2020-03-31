@@ -8,18 +8,21 @@ from pathlib import Path
 from slackeventsapi import SlackEventAdapter
 from flask import Flask, request, make_response, Response
 
+
 slack_secrets = config.get_secrets()
 slack_api_token = slack_secrets['apiToken']
-slack_signing_secret =slack_secrets['signingSecret']
+slack_signing_secret = slack_secrets['signingSecret']
 
 app = Flask(__name__)
+data_directory = Path(__file__).parent / "data"
 slack_client = config.get_slack_client(slack_api_token)
 slack_event_adapter = SlackEventAdapter(slack_signing_secret, "/", app)
 
-with open(Path(__file__).parent / "data" / "template.md", "r") as template_file:
+with open(data_directory / "template.md", "r") as template_file:
     message_template = template_file.read()
-with open(Path(__file__).parent / "data" / "model.json", "r") as model_file:
+with open(data_directory / "model.json", "r") as model_file:
     model = json.load(model_file)
+
 
 def answer_message(event_data):
     event = event_data["event"]
@@ -40,15 +43,19 @@ def answer_message(event_data):
         text=message
         )
 
+
 @slack_event_adapter.on("message")
 def handle_event(event_data):
     answer_message(event_data)
     return
+
 
 @app.before_request
 def skip_retry():
     if int(request.headers.get('X-Slack-Retry-Num', '0')):
         return make_response('', 200)
 
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
+
