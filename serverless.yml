@@ -28,7 +28,6 @@ provider:
     owner: "skill-software-devops"
     application: "introductions-bot"
 
-
 functions:
   app:
     handler: wsgi.handler
