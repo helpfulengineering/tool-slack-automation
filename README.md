@@ -1,4 +1,4 @@
-# introductions-bot
+# Slack introductions bot
 
 ## Deployment instructions
 1. Create an app in Slack
