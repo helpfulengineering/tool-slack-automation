@@ -27,8 +27,8 @@ def extract_categories(text, categories):
 
 # FIXME: crippled normalization
 def recommend_channels(model, text, limit=5):
-    tokenized_text = extract_categories(text, model["skills"])
-    total_skills = len(model["skills"])
+    tokenized_text = extract_categories(text, model["categories"])
+    total_skills = len(model["categories"])
     recommendations = {
         channel: sum([
             category_weight * tokenized_text.get(channel_category, 0)
