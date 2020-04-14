@@ -22,7 +22,7 @@ and some other niceties.
     python -m examples.channel_list --no-cache --token xoxp-··· \
                                     --format csv --output ./channels.csv
 
-    python -m examples.classifier_model --channel-filter "project-.*" \
+    python -m examples.classifier_model --channel-filter "(project.*|skill.*|communication.*|discussion.*|hardware.*|medical.*|legal.*|comms.*|fundraising.*)" \
                                         --channel-threshold 0.5 \
                                         --output ./model.json
 
