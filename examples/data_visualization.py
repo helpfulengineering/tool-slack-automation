@@ -45,7 +45,7 @@ def generate_charts(model, output, token, cache):
     print("Generating daily channel activity charts...")
     channel_activity = directory / "channel_activity"
     channel_activity.mkdir()
-
+    
     for channel in channels:
         activity = collections.Counter(
             message["time"] // (3600 * 24)
@@ -55,7 +55,7 @@ def generate_charts(model, output, token, cache):
             datetime.datetime.fromtimestamp(item[0] * 3600 * 24): item[1]
             for item in sorted(activity.items(), key=lambda item: item[0])
             }
-
+    
         figure, axes = matplotlib.pyplot.subplots()
         axes.grid(True, which="both", linestyle=":")
         axes.plot(list(data.keys()), list(data.values()))
@@ -63,18 +63,18 @@ def generate_charts(model, output, token, cache):
         axes.xaxis.set_major_formatter(matplotlib.dates.DateFormatter("%Y%m%d"))
         axes.xaxis.set_major_locator(matplotlib.dates.WeekdayLocator())
         figure.subplots_adjust(bottom=0.3)
-
+    
         matplotlib.pyplot.xticks(rotation=90)
         matplotlib.pyplot.ylabel("Posted messages")
         matplotlib.pyplot.title("Messages in " + channel["name"])
         matplotlib.pyplot.savefig(channel_activity / f"{channel['name']}.png")
         matplotlib.pyplot.close()
         print(channel["name"])
-
+    
     print("Generating channel category bar charts...")
     channel_categories = directory / "channel_categories"
     channel_categories.mkdir()
-
+    
     for channel, categories in model["channels"].items():
         ticks = range(len(categories))
         matplotlib.pyplot.figure(num=None, figsize=(32, 18))
@@ -89,11 +89,11 @@ def generate_charts(model, output, token, cache):
         matplotlib.pyplot.savefig(channel_categories / f"{channel}.png")
         matplotlib.pyplot.close()
         print(channel)
-
+    
     print("Generating channel terms word clouds...")
     channel_terms = directory / "channel_terms"
     channel_terms.mkdir()
-
+    
     for channel in channels:
         wordcloud.WordCloud(
             width=1024,
@@ -102,11 +102,11 @@ def generate_charts(model, output, token, cache):
             ).generate(" ".join([item["text"] for item in channel["messages"]])
             ).to_file(channel_terms / f"{channel['name']}.png")
         print(channel["name"])
-
+    
     print("Generating category channel clouds...")
     category_channels = directory / "category_channels"
     category_channels.mkdir()
-
+    
     for category in model["categories"].keys():
         frequencies = {
             name: weights[category]
@@ -120,6 +120,62 @@ def generate_charts(model, output, token, cache):
             ).generate_from_frequencies(frequencies
             ).to_file(category_channels / f"{category}.png")
         print(category)
+
+    print("Generating helpfulness graph...")
+    helpfulness = directory / "helpfulness"
+    helpfulness.mkdir()
+
+    introductions = next(filter(
+        lambda channel: channel["name"] == "introductions",
+        corpus.channels()
+        ))["messages"]
+
+    channel_members = {
+        "#" + channel["name"]: channel["members"]
+        for channel in corpus.channels()
+        }
+
+    total = collections.Counter(
+        introduction["time"] // (3600 * 24)
+        for introduction in introductions
+        )
+
+    useful = collections.Counter(
+        introduction["time"] // (3600 * 24)
+        for introduction in introductions
+        if any(
+            introduction["user"] in channel_members[recommendation]
+            for recommendation in analysis.recommend(
+                model,
+                introduction["text"],
+                limit=3
+                )
+            )
+        )
+
+    normalized = dict(
+        [date, useful.get(date, 0) / count]
+        for date, count in total.items()
+        )
+
+    data = {
+        datetime.datetime.fromtimestamp(item[0] * 3600 * 24): item[1]
+        for item in sorted(normalized.items(), key=lambda item: item[0])
+        }
+
+    figure, axes = matplotlib.pyplot.subplots()
+    axes.grid(True, which="both", linestyle=":")
+    axes.plot(list(data.keys()), list(data.values()))
+    axes.xaxis.set_minor_locator(matplotlib.dates.DayLocator())
+    axes.xaxis.set_major_formatter(matplotlib.dates.DateFormatter("%Y%m%d"))
+    axes.xaxis.set_major_locator(matplotlib.dates.WeekdayLocator())
+    figure.subplots_adjust(bottom=0.3)
+
+    matplotlib.pyplot.xticks(rotation=90)
+    matplotlib.pyplot.ylabel("Helpful suggestions")
+    matplotlib.pyplot.title("Helpful suggestions in #introductions")
+    matplotlib.pyplot.savefig(helpfulness / f"helpfulness.png")
+    matplotlib.pyplot.close()
 
 
 if __name__ == "__main__":
