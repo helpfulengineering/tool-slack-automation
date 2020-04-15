@@ -8,7 +8,7 @@ Please read through the welcome message from the @greetbot.
 >*Web/Desktop Users*
 >Scroll down in the left side panel. Greetbot is located under “Recent Apps”.
 
-If you would like to volunteer please complete the Volunteer Form: https://kik.to/OY Once you have filled out the Volunteer Form, try this list of open jobs to find an open position that matches your skillset!
+If you would like to volunteer please complete the Volunteer Form: https://kik.to/OY Once you have filled out the Volunteer Form, try this [list of open jobs](https://kik.to/Up) to find an open position that matches your skillset!
 
 If you have Hardware that can be used for prototyping or manufacturing please complete the Hardware Form: https://kik.to/tq :bb8-flame:
 
