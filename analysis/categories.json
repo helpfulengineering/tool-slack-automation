@@ -1,4 +1,10 @@
 {
+    "management": [
+        "agile",
+        "scrum",
+        "project manager",
+        "project management"
+    ],
     "backend": [
         "agile",
         "algorithm development",
