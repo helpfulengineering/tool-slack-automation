@@ -32,7 +32,7 @@ def answer_message(event_data):
         return
     if 'text' not in event:
         return
-    suggestion = "*Recommended channels\n{}*"
+    suggestion = "*Recommended channels*\n{}"
     channels = matcher.recommend_channels(model, event["text"], limit=3)
     channels = suggestion.format("\n".join(channels)) if channels else ""
     message = message_template.format(suggestion=channels)
