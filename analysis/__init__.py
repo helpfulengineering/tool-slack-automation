@@ -6,7 +6,22 @@ Under construction: ugly/moved code warning.
 import re
 import json
 import pathlib
+import functools
+import spacy
 
+parse = spacy.load("en_core_web_sm")
+
+@functools.lru_cache(maxsize=None)
+def extract_tags(text):
+    return list(
+        token.lemma_
+        for token in parse(text)
+        if not token.is_stop and token.is_alpha
+        )
+
+@functools.lru_cache(maxsize=None)
+def lemmatize(text):
+    return " ".join(extract_tags(text))
 
 def tag(categories, text):
     def match(skills, text):
@@ -31,7 +46,7 @@ def categories():
 def select(channels, expression=r".*", threshold=1):
     """Select the channels that match all the specified conditions:
     * Have less users than `threshold` times the most joined channel.
-    * Match the provided regular expression (against the channel)."""
+    * Match the provided regular expression."""
     user_limit = threshold * max(
         len(channel["members"])
         for channel in channels
@@ -42,7 +57,7 @@ def select(channels, expression=r".*", threshold=1):
         ]), channels)
 
 
-def model(channels):
+def model(channels, jobs):
     return {
         "channels": {
             channel["name"]: tag(
@@ -51,7 +66,19 @@ def model(channels):
                 )
             for channel in channels
             },
-        "categories": categories()
+        "categories": categories(),
+        "jobs": {
+            job["ID"]: {
+                    "title": job["Title"],
+                    "link": job["Application URL"],
+                    "tags": extract_tags(job["Title"] + f"""
+                    {job.get("Required Experience", "")}
+                    {job.get("Other Titles", "")}
+                    {job.get("Skills", "")}
+                    """)
+                }
+            for job in jobs
+            }
         }
 
 
