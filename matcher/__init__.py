@@ -49,7 +49,7 @@ def recommend_jobs(model, text, limit=3):
         identifier: job["tags"] for identifier, job in model["jobs"].items()
         })
     return [
-        f"""* <{model["jobs"][job]["link"]}|{job}>""" for job, weight in sorted(
+        f"""• <{model["jobs"][job]["link"]}|{job}>""" for job, weight in sorted(
             recommendations.items(), reverse=True, key=lambda item: item[1]
             )
         if weight
