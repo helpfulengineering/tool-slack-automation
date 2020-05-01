@@ -32,10 +32,14 @@ def answer_message(event_data):
         return
     if 'text' not in event:
         return
-    suggestion = "*Recommended channels*\n{}"
-    channels = matcher.recommend_channels(model, event["text"], limit=3)
-    channels = suggestion.format("\n".join(channels)) if channels else ""
-    message = message_template.format(suggestion=channels)
+    suggestion = ""
+    channels = "\n".join(matcher.recommend_channels(model, event["text"]))
+    jobs = "\n".join(matcher.recommend_jobs(model, event["text"]))
+    if channels:
+        suggestion += "\n*Recommended channels*\n{}\n".format(channels)
+    if jobs:
+        suggestion += "\n*Recommended jobs*\n{}\n".format(jobs)
+    message = message_template.format(suggestion=suggestion)
     slack_client.chat_postMessage(
         channel=event["channel"],
         thread_ts=event["ts"],
@@ -58,4 +62,3 @@ def skip_retry():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
-
