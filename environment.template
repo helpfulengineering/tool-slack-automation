@@ -1,0 +1,9 @@
+export ONEPASSWORD_PASSWORD # Master password
+export ONEPASSWORD_TOTP_SECRET # Two-factor authentication secret
+export ONEPASSWORD_SITE # team-name.1password.com
+export ONEPASSWORD_USER # user@example.com
+export ONEPASSWORD_SECRET_KEY # A3-ABC···
+
+export SLACK_TOKEN # xoxb-···
+export SLACK_SIGNING_SECRET # abc123···
+export SLACK_CHANNEL # Channel ID to send notifications
