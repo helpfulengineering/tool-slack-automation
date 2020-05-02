@@ -4,7 +4,6 @@ import os
 import re
 import json
 import string
-import asyncio
 import secrets
 import traceback
 import subprocess
@@ -15,7 +14,6 @@ from slackeventsapi import SlackEventAdapter
 from slack import WebClient
 
 app = Flask(__name__)
-app.debug = True
 
 slack_channel = os.getenv("SLACK_CHANNEL")
 slack_api_token = os.getenv("SLACK_TOKEN")
