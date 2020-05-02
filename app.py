@@ -36,7 +36,12 @@ def answer_message(event_data):
     channels = "\n".join(matcher.recommend_channels(model, event["text"]))
     jobs = "\n".join(matcher.recommend_jobs(model, event["text"]))
     if channels:
-        suggestion += "\n*Recommended channels*\n{}\n".format(channels)
+        suggestion += (
+            "\n*Recommended channels*\n" + channels + "\n"
+            "(#skill channels have people with similar skills in them; "
+            "#discussion channels talk about a topic; #project channels "
+            "are working on a project)\n"
+            )
     if jobs:
         suggestion += "\n*Recommended jobs*\n{}\n".format(jobs)
     message = message_template.format(suggestion=suggestion)
