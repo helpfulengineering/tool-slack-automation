@@ -6,3 +6,12 @@
 2. Rename [`./environment.template`](/environment.template) to [`./environment`](/environment) and fill the variables.
 
 3. See [`./run.sh`](/run.sh) for an invocation example.
+
+## Slack bot
+
+1. Place the application endpoint address in the `Interactivity` section of the Slack application configuration.
+
+2. Add the following bot scopes:
+  * `command`
+  * `chat:write`
+  * `users:read`
