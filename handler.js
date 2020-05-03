@@ -16,7 +16,13 @@ module.exports.search = async event => {
       payload.value
     );
     let options = matches.map(item => {
-      return {"text": item, "value": item}
+      return {
+        "value": item,
+        "text": {
+          "type": "plain_text",
+          "text": item
+        }
+      }
     });
     return {
       statusCode: 200,
