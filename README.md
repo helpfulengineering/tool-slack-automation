@@ -1,8 +1,31 @@
 # Slack select provider
 Serverless function for providing search completion data to Slack interaction dialogs
 
-## Example block
+## Static source structure
+[`data.json`](./data.json)
+```json
+{
+    "source-1": [
+        "item-1",
+        "item-2",
+        "item-3",
+    ],
+    "source-2": [
+        "item-1",
+        "item-2",
+        "item-3",
+    ]
+}
 ```
+
+## Source selection format
+* Query to `source-1` without restricting the number of results:
+    `source-1`
+* Query to `source-1` with a maximum of 10 results:
+    `source-1:10`
+
+## Example intreactive block
+```json
 [
   {
     "type": "section",
