@@ -2,3 +2,4 @@ __pycache__
 library/token
 environment
 python
+log
