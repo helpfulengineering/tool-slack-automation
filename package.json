@@ -1,0 +1,29 @@
+{
+  "name": "slack-select-provider",
+  "version": "0.1.0",
+  "description": "Serve search completion data to Slack interaction dialogs",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helpfulengineering/tool-slack-select-provider.git"
+  },
+  "keywords": [
+    "slack",
+    "interaction",
+    "list",
+    "fuzzy",
+    "search"
+  ],
+  "author": "Helio Machado <0x2b3bfa0@googlemail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/helpfulengineering/tool-slack-select-provider/issues"
+  },
+  "homepage": "https://github.com/helpfulengineering/tool-slack-select-provider#readme",
+  "dependencies": {
+    "fuzzaldrin-plus": "^0.6.0"
+  }
+}
