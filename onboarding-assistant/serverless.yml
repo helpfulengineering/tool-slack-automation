@@ -1,0 +1,79 @@
+service: onboarding-assistant
+
+plugins:
+  - serverless-prune-plugin
+  - serverless-python-requirements
+  - serverless-wsgi
+
+provider:
+  iamRoleStatements:
+    -
+      Action:
+        - "secretsmanager:GetSecretValue"
+      Effect: Allow
+      Resource:
+        - "${env:SECRET_ARN}"
+    -
+      Action:
+        - "lambda:InvokeFunction"
+      Effect: Allow
+      Resource: "*"
+  name: aws
+  region: us-east-1
+  runtime: python3.8
+  stage: ${opt:stage, "production"}
+  environment:
+    SECRET_ARN: "${env:SECRET_ARN}"
+    FUNCTION_PREFIX: "${self:service}-${self:provider.stage}-"
+
+
+functions:
+  message_actions:
+    events:
+      -
+        http:
+          method: any
+          path: /message_actions
+    handler: wsgi_handler.handler
+    memorySize: 128
+    runtime: python3.8
+    timeout: 25
+  events:
+    events:
+      -
+        http:
+          method: any
+          path: /events
+    handler: wsgi_handler.handler
+    memorySize: 128
+    runtime: python3.8
+    timeout: 25
+  interactivity:
+    events:
+      -
+        http:
+          method: any
+          path: /interactivity
+    handler: wsgi_handler.handler
+    memorySize: 128
+    runtime: python3.8
+    timeout: 25
+  menu:
+    events:
+      -
+        http:
+          method: post
+          path: search
+          integration: lambda
+    handler: code/menu/handler.menu
+    memorySize: 128
+    runtime: nodejs12.x
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    fileName: code/requirements.txt
+    vendor: code/modules
+  wsgi:
+    app: code/handler.application
+    packRequirements: false

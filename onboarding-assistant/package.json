@@ -1,0 +1,25 @@
+{
+  "author": "Helio Machado <0x2b3bfa0@googlemail.com>",
+  "bugs": {
+    "url": "https://github.com/helpfulengineering/tool-slack-automation/issues"
+  },
+  "dependencies": {
+    "fuzzaldrin-plus": "^0.6.0",
+    "serverless-prune-plugin": "^1.4.2",
+    "serverless-python-requirements": "^5.1.0",
+    "serverless-wsgi": "^1.7.4"
+  },
+  "description": "Slack onboarding assistant bot",
+  "homepage": "https://github.com/helpfulengineering/tool-slack-automation#readme",
+  "keywords": [],
+  "license": "GPL-3.0-or-later",
+  "name": "onboarding-assistant",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helpfulengineering/tool-slack-automation.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.5"
+}

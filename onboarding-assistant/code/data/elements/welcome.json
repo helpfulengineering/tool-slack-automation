@@ -1,0 +1,39 @@
+{"blocks":[
+                {
+                        "type": "section",
+                        "text": {
+                                "type": "mrkdwn",
+                                "text": ":wave: Hi <@{user}>! we're happy *you're here!* :wave:\n\nWe'd like to get to know you *a little bit better*. :hugging_face:"
+                        }
+                },
+                {
+                        "type": "divider"
+                },
+                {
+                        "type": "section",
+                        "text": {
+                                "type": "mrkdwn",
+                                "text": "Please *press the button* to add your *skill set*, which will be automatically posted to #introductions"
+                        },
+                        "accessory": {
+"action_id": "show_form",
+                                "type": "button",
+                                "text": {
+                                        "type": "plain_text",
+                                        "text": "Add your skill set",
+                                        "emoji": true
+                                },
+                                "value": "show_form"
+                        }
+                },
+                        {
+                        "type": "divider"
+                },
+        {
+                        "type": "section",
+                        "text": {
+                                "type": "mrkdwn",
+                                "text": "It will also notify our onboarding crew that you joined and they *will reach out* to help you find *the right project* :rocket:"
+                        }
+                }
+        ]}

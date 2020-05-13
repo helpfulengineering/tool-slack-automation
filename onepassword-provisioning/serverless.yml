@@ -1,0 +1,60 @@
+---
+service: onepassword-provisioning
+
+plugins:
+- serverless-prune-plugin
+- serverless-python-requirements
+
+provider:
+  environment:
+    FUNCTION_PREFIX: "${self:service}-${self:provider.stage}-"
+    SECRET_ARN: "${env:SECRET_ARN}"
+    TRANSIT_KEY: "${env:TRANSIT_KEY}"
+  iamRoleStatements:
+  - Action:
+    - secretsmanager:GetSecretValue
+    - secretsmanager:UpdateSecret
+    Effect: Allow
+    Resource:
+    - "${env:SECRET_ARN}"
+  - Action:
+    - lambda:InvokeFunction
+    Effect: Allow
+    Resource: "*"
+  name: aws
+  region: us-east-1
+  runtime: python3.8
+  stage: ${opt:stage, "production"}
+
+functions:
+  create_account:
+    handler: code/handler.create_account
+    memorySize: 128
+    timeout: 25
+  refresh_token:
+    events:
+    - schedule: rate(25 minutes)
+    handler: code/handler.refresh_token
+    memorySize: 128
+    timeout: 25
+  slack_interaction:
+    events:
+    - http:
+        integration: lambda
+        method: post
+        path: /slack_interaction
+    handler: code/handler.slack_interaction
+    memorySize: 128
+    timeout: 25
+     
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    fileName: code/requirements.txt
+    vendor: code/modules
+    
+    
+
+
+  
+

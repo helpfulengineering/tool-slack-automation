@@ -1,0 +1,50 @@
+{
+  "type": "modal",
+  "title": {
+    "type": "plain_text",
+    "text": "1Password account"
+  },
+  "submit": {
+    "type": "plain_text",
+    "text": "Request"
+  },
+  "close": {
+    "type": "plain_text",
+    "text": "Cancel"
+  },
+  "blocks": [
+    {
+      "type": "input",
+      "block_id": "address",
+      "element": {
+        "action_id": "address",
+        "type": "plain_text_input",
+        "placeholder": {
+          "type": "plain_text",
+          "text": "user@example.com"
+        }
+      },
+      "label": {
+        "type": "plain_text",
+        "text": "What's your email address?"
+      }
+    },
+    {
+      "type": "input",
+      "block_id": "reason",
+      "element": {
+        "action_id": "reason",
+        "type": "plain_text_input",
+        "multiline": true,
+        "placeholder": {
+          "type": "plain_text",
+          "text": "I need it because..."
+        }
+      },
+      "label": {
+        "type": "plain_text",
+        "text": "Why do you need 1Password?"
+      }
+    }
+  ]
+}

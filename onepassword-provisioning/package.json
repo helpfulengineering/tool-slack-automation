@@ -1,0 +1,23 @@
+{
+  "author": "Helio Machado <0x2b3bfa0@googlemail.com>",
+  "bugs": {
+    "url": "https://github.com/helpfulengineering/tool-slack-automation/issues"
+  },
+  "dependencies": {
+    "serverless-python-requirements": "^5.1.0",
+    "serverless-prune-plugin": "^1.4.2"
+  },
+  "description": "Slack 1Password account provisioning bot",
+  "homepage": "https://github.com/helpfulengineering/tool-slack-automation#readme",
+  "keywords": [],
+  "license": "GPL-3.0-or-later",
+  "name": "onepassword-provisioning",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helpfulengineering/tool-slack-automation.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.5"
+}
