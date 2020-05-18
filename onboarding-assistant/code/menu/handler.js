@@ -14,6 +14,7 @@ module.exports.menu = async event => {
           return {"value": item, "text": {"type": "plain_text", "text": item}}
         }
     );
+    print(options)
     return {statusCode: 200, body: JSON.stringify({"options": options})};
   } else {
     return {statusCode: 400, body: "400"};
