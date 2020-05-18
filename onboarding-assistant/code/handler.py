@@ -51,11 +51,13 @@ def message_actions():
     action = json.loads(request.form["payload"])
     if action["type"] == "shortcut":
         handle_team_join({"event": action})
+        return ""
     elif all([
         action["type"] == "block_actions",
         action['actions'][0]['action_id'] == "show_form"
     ]):
         slack_client.views_open(trigger_id=action["trigger_id"], view=form)
+        return ""
     elif action["type"] == "view_submission":
         def extract(value):
             value = list(value.values())[0]
