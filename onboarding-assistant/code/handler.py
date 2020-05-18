@@ -46,7 +46,7 @@ with open(data_directory / "success.json", "r") as success_file:
 with open(data_directory / "template.md", "r") as template_file:
     message_template = template_file.read()
 
-@application.route("/message_actions", methods=["POST"])
+@application.route("/interactivity", methods=["POST"])
 def message_actions():
     action = json.loads(request.form["payload"])
     if action["type"] == "shortcut":
@@ -100,15 +100,15 @@ def message_actions():
             "Privacy Policy": True,
             })
 
-        slack_client.chat_postMessage(
-            channel="G012HLGCNKY",
-            link_names=True,
-            text=
-            user=action["user"]["id"]
-            skills=", ".join(state["skills"] + state["languages"])
-            reasons=state["reasons"]
-            )
-            
+        # slack_client.chat_postMessage(
+        #     channel="G012HLGCNKY",
+        #     link_names=True,
+        #     text=
+        #     user=action["user"]["id"]
+        #     skills=", ".join(state["skills"] + state["languages"])
+        #     reasons=state["reasons"]
+        #     )
+
         return success
     else:
         return ""
@@ -120,12 +120,12 @@ def handle_team_join(event):
     welcome["blocks"][0]["text"]["text"] = (
         welcome["blocks"][0]["text"]["text"].format(user=event["user"]["id"])
         )
-    slack_client.chat_postMessage(
-        channel=event["user"]["id"],
-        link_names=True,
-        **welcome,
-        text=""
-        )
+    # slack_client.chat_postMessage(
+    #     channel=event["user"]["id"],
+    #     link_names=True,
+    #     **welcome,
+    #     text=""
+    #     )
     return make_response("", 200)
 
 
