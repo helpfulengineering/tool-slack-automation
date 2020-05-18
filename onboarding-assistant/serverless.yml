@@ -62,7 +62,7 @@ functions:
     events:
       -
         http:
-          method: post
+          method: any
           path: search
           integration: lambda
     handler: code/menu/handler.menu
