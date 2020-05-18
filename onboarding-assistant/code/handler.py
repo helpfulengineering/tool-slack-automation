@@ -35,15 +35,15 @@ volunteers=airtable.Airtable(
 
 data_directory = Path(__file__).parent / "data"
 
-with open(data_directory / "form.json", "r") as form_file:
+with open(data_directory / "elements" / "form.json", "r") as form_file:
     form = json.load(form_file)
-with open(data_directory / "model.json", "r") as model_file:
+with open(data_directory / "elements" / "model.json", "r") as model_file:
     model = json.load(model_file)
-with open(data_directory / "welcome.json", "r") as welcome_file:
+with open(data_directory / "elements" / "welcome.json", "r") as welcome_file:
     welcome = json.load(welcome_file)
-with open(data_directory / "success.json", "r") as success_file:
+with open(data_directory / "elements" / "success.json", "r") as success_file:
     success = json.load(success_file)
-with open(data_directory / "template.md", "r") as template_file:
+with open(data_directory / "elements" / "template.md", "r") as template_file:
     message_template = template_file.read()
 
 @application.route("/interactivity", methods=["POST"])
