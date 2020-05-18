@@ -6,7 +6,7 @@ const data = require(path.resolve(__dirname, "./data.json"));
 
 
 module.exports.menu = async event => {
-    return {statusCode: 200, body: {"options": "any"})};
+    return {statusCode: 200, body: {"options": "any"}};
 
   let payload = JSON.parse(event.body.payload);
   if(payload.type == "block_suggestion") {
