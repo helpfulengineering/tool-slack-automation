@@ -6,8 +6,8 @@ const data = require(path.resolve(__dirname, "./data.json"));
 
 
 module.exports.menu = async event => {
-    return {statusCode: 200, body: {"options": options})};
-    
+    return {statusCode: 200, body: {"options": "any"})};
+
   let payload = JSON.parse(event.body.payload);
   if(payload.type == "block_suggestion") {
     let options = query(payload.value, ...payload.action_id.split(":")).map(
