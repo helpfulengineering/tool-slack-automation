@@ -25,5 +25,3 @@ function query(string, source, limit = undefined) {
   let results = fuzzyaldrin.filter(data[source], string);
   return results.slice(0, limit);
 }
-
-module.exports.menu({})
