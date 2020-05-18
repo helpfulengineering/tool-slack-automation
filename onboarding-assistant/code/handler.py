@@ -46,88 +46,95 @@ with open(data_directory / "elements" / "success.json", "r") as success_file:
 with open(data_directory / "template.md", "r") as template_file:
     message_template = template_file.read()
 
+
+def handle_form_submission(action):
+    def extract(value):
+        value = list(value.values())[0]
+        if value["type"] == "static_select":
+            return [value["selected_option"]["value"]]
+        elif value["type"] == "multi_external_select":
+            return [item["value"] for item in value["selected_options"]]
+        elif value["type"] == "plain_text_input":
+            return value["value"]
+    state = {
+        field: extract(value)
+        for field, value in action["view"]["state"]["values"].items()
+        }
+    labels = [
+        f"{name}:{value}"
+        for name, item in state.items()
+        for value in item
+        if type(item) is list
+    ]
+    user = slack_client.users_info(user=action["user"]["id"])["user"]
+
+    volunteers.create(configuration["airtable_table"], {
+        "Slack Handle": user["profile"]["display_name_normalized"],
+        "Slack User ID":  user["id"],
+        # "Email": "",
+        # "Profession": "",
+        # "External Organization": "",
+        "Volunteer Interest": True,
+        # # "Weekly Capacity": "",
+        # # "Languages": "",
+        # # "Industry": "",
+        # "City": "",
+        # "State/Province": "",
+        # "Zip Code": "",
+        # # "Country": "",
+        "Timezone": user["tz_label"],
+        # # "Skills": "",
+        "Additional Skills": "; ".join(labels),
+        # "Equipment": "",
+        # "Experience": "",
+        "Management Interest": False,
+        "Privacy Policy": True,
+        })
+
+    # slack_client.chat_postMessage(
+    #     channel="G012HLGCNKY",
+    #     link_names=True,
+    #     text=
+    #     user=action["user"]["id"]
+    #     skills=", ".join(state["skills"] + state["languages"])
+    #     reasons=state["reasons"]
+    #     )
+
+
 @application.route("/interactivity", methods=["POST"])
-def message_actions():
+def handle_interactivity():
     action = json.loads(request.form["payload"])
+
     if action["type"] == "shortcut":
-        handle_team_join({"event": action})
+        handle_team_join({"event": action}, True)
         return ""
-    elif all([
-        action["type"] == "block_actions",
-        action['actions'][0]['action_id'] == "show_form"
-    ]):
-        slack_client.views_open(trigger_id=action["trigger_id"], view=form)
+
+    elif action["type"] == "block_actions":
+        if action["actions"][0]["action_id"] == "show_form":
+            slack_client.views_open(trigger_id=action["trigger_id"], view=form)
         return ""
+
     elif action["type"] == "view_submission":
-        def extract(value):
-            value = list(value.values())[0]
-            if value["type"] == "static_select":
-                return [value["selected_option"]["value"]]
-            elif value["type"] == "multi_external_select":
-                return [item["value"] for item in value["selected_options"]]
-            elif value["type"] == "plain_text_input":
-                return value["value"]
-        state = {
-            field: extract(value)
-            for field, value in action["view"]["state"]["values"].items()
-            }
-        labels = [
-            f"{name}:{value}"
-            for name, item in state.items()
-            for value in item
-            if type(item) is list
-        ]
-        user = slack_client.users_info(user=action["user"]["id"])["user"]
-
-        volunteers.create(configuration["airtable_table"], {
-            "Slack Handle": user["profile"]["display_name_normalized"],
-            "Slack User ID":  user["id"],
-            # "Email": "",
-            # "Profession": "",
-            # "External Organization": "",
-            "Volunteer Interest": True,
-            # # "Weekly Capacity": "",
-            # # "Languages": "",
-            # # "Industry": "",
-            # "City": "",
-            # "State/Province": "",
-            # "Zip Code": "",
-            # # "Country": "",
-            "Timezone": user["tz_label"],
-            # # "Skills": "",
-            "Additional Skills": "; ".join(labels),
-            # "Equipment": "",
-            # "Experience": "",
-            "Management Interest": False,
-            "Privacy Policy": True,
-            })
-
-        # slack_client.chat_postMessage(
-        #     channel="G012HLGCNKY",
-        #     link_names=True,
-        #     text=
-        #     user=action["user"]["id"]
-        #     skills=", ".join(state["skills"] + state["languages"])
-        #     reasons=state["reasons"]
-        #     )
-
+        handle_form_submission(action)
         return success
+
     else:
         return ""
 
 
 @slack_event_adapter.on("team_join")
-def handle_team_join(event):
+def handle_team_join(event, test=False):
     event = event["event"]
     welcome["blocks"][0]["text"]["text"] = (
         welcome["blocks"][0]["text"]["text"].format(user=event["user"]["id"])
         )
-    # slack_client.chat_postMessage(
-    #     channel=event["user"]["id"],
-    #     link_names=True,
-    #     **welcome,
-    #     text=""
-    #     )
+    if test:
+        slack_client.chat_postMessage(
+            channel=event["user"]["id"],
+            link_names=True,
+            **welcome,
+            text=""
+            )
     return make_response("", 200)
 
 
