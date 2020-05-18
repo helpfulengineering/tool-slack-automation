@@ -6,18 +6,18 @@ const data = require(path.resolve(__dirname, "./data.json"));
 
 
 module.exports.menu = async event => {
-    return {statusCode: 200, body: {"options": "any"}};
-
   let payload = JSON.parse(event.body.payload);
-  if(payload.type == "block_suggestion") {
-    let options = query(payload.value, ...payload.action_id.split(":")).map(
-        item => {
-          return {"value": item, "text": {"type": "plain_text", "text": item}}
-        }
-    );
-    return {statusCode: 200, body: {"options": options}};
+  if(payload && payload.type == "block_suggestion") {
+    return {"options":
+        query(payload.value, ...payload.action_id.split(":")).map(item => {
+            return {
+                "text": {"type": "plain_text", "text": item},
+                "value": item
+            }
+        })
+    };
   } else {
-    return {statusCode: 400, body: "400"};
+    return "400";
   }
 };
 
