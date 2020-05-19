@@ -74,7 +74,7 @@ def handle_form_submission(action):
         value = list(value.values())[0]
         if value["type"] == "static_select":
             return [value["selected_option"]["value"]]
-        elif value["type"] == "multi_external_select":
+        elif value["type"] in ("multi_external_select", "checkboxes"):
             return [item["value"] for item in value["selected_options"]]
         elif value["type"] == "plain_text_input":
             return value["value"]
