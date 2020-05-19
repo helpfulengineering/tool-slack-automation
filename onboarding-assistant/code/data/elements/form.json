@@ -212,6 +212,7 @@
 				"text": " ",
 				"emoji": true
 			},
+			"block_id": "options",
 			"element": {
 				"type": "checkboxes",
 				"options": [

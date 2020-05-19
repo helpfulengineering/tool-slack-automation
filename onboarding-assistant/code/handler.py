@@ -84,7 +84,7 @@ def handle_form_submission(action):
         }
     user = slack_client.users_info(user=action["user"]["id"])["user"]
 
-    print(json.dumps(state), json.dumps(user))
+    print(json.dumps(state), json.dumps(user),action["view"]["state"]["values"])
 
     airtable_volunteers.create(configuration["airtable_table"], {
         "Slack Handle": user["profile"]["display_name_normalized"],
