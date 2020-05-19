@@ -1,39 +1,59 @@
-{"blocks":[
-                {
-                        "type": "section",
-                        "text": {
-                                "type": "mrkdwn",
-                                "text": ":wave: Hi <@{user}>! we're happy *you're here!* :wave:\n\nWe'd like to get to know you *a little bit better*. :hugging_face:"
-                        }
-                },
-                {
-                        "type": "divider"
-                },
-                {
-                        "type": "section",
-                        "text": {
-                                "type": "mrkdwn",
-                                "text": "Please *press the button* to add your *skill set*, which will be automatically posted to #introductions"
-                        },
-                        "accessory": {
-"action_id": "show_form",
-                                "type": "button",
-                                "text": {
-                                        "type": "plain_text",
-                                        "text": "Add your skill set",
-                                        "emoji": true
-                                },
-                                "value": "show_form"
-                        }
-                },
-                        {
-                        "type": "divider"
-                },
-        {
-                        "type": "section",
-                        "text": {
-                                "type": "mrkdwn",
-                                "text": "It will also notify our onboarding crew that you joined and they *will reach out* to help you find *the right project* :rocket:"
-                        }
-                }
-        ]}
+{
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":wave: Hi <@{user}>! we're happy *you're here!* :wave:\n\nWe'd like to get to know you *a little bit better*. :hugging_face:"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Please *press the button* to add your *skill set*, which will be automatically posted to #introductions"
+			},
+			"accessory": {
+				"action_id": "show_form",
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Add your skill set",
+					"emoji": true
+				},
+				"value": "show_form"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "It will also notify our onboarding crew that you joined and they *will reach out* to help you find *the right project* :rocket:"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":fire: *Critical first steps for every new member*\n1. Add your profession or main skill to your Slack profile (click on <@{user}> in the top left).\n2. Ask for help anywhere, especially from moderators :moderator:."
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":question:*Curious about what’s going on here?*\n1. Read our <https://kik.to/US|*Getting Started Guide*>!\n2. Check out our <https://airtable.com/shrZ8pIj3rV6BAqdq/tblaQ1M283TuaV2Im?blocks=hide|*current projects*> and <https://kik.to/Up|*open volunteer jobs*>.\n3. Browse <https://app.diagrams.net/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Helpful_channel_map#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1V-Ey3jdmpZMyPX40mrp5Ku0UzbVCy1ec%26export%3Ddownload|*all our channels*>."
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "* _New using Slack? See <https://slack-redir.net/link?url=https%3A%2F%2Fdocs.google.com%2Fdocument%2Fd%2F1TvBJxCk8Rhz4bgzrWQBXlklVvN9i-cYOqpB143MgamM%2Fedit%3Fusp%3Dsharing|*this guide*>._"
+			}
+		}
+	]
+}
