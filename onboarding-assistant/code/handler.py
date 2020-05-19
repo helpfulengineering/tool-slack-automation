@@ -50,6 +50,16 @@ with open(data_directory / "elements" / "success.json", "r") as success_file:
 with open(data_directory / "template.md", "r") as template_file:
     message_template = template_file.read()
 
+def airtable_filter_formula(field, value):
+    return "{" + field.replace("{", r"\{").replace("}", r"\}") + "} = '" + value.replace("'", r"\'").replace("\\", "\\\\") + "'"
+def airtable_create_record(table, field, value):
+    return airtable_volunteers.create(table, {field: value})["id"]
+def airtable_unique_records(table, field, values):
+    response=[]
+    for value in values:
+        existing = airtable_volunteers.get(table, filter_by_formula=airtable_filter_formula(field, value))["records"]
+        response += [existing[0]["id"] if existing else airtable_create_record(table, field, value)]
+    return list(set(response))
 
 def format_object(object, *arguments, **keyword_arguments):
     """Applies the `str.format()` method to a nested JSON-like object."""
@@ -84,37 +94,36 @@ def handle_form_submission(action):
         }
     user = slack_client.users_info(user=action["user"]["id"])["user"]
 
-    print(json.dumps(state), json.dumps(user),action["view"]["state"]["values"])
-
-    airtable_volunteers.create(configuration["airtable_table"], {
+    record = airtable_volunteers.create("Volunteers", {
         "Slack Handle": user["profile"]["display_name_normalized"],
         "Slack User ID":  user["id"],
 
         # "Email": "",
         "Profession": state["profession"],
         "External Organization": state["organization"],
-        "Weekly Capacity": state["availability"],
-        "Skills": state["skills"],
+        "Weekly Capacity (new)": int(state["availability"].pop()),
 
+        "Skills": airtable_unique_records("Skills", "Name", state["skills"]),
+        "Languages": airtable_unique_records("Languages", "Language", state["languages"]),
+        "Industry": airtable_unique_records("Industries", "Name", state["tasks"]),
         # "Equipment": "",
-        "Industry": [airtable_volunteers.search("Language", identifier)[0]["id"] for language in state["languages"]],
 
         # "City": "",
         # # "Country": "",
         # "State/Province": "",
         # "Zip Code": "",
+        # "Geolocation": "",
 
-        "Volunteer Interest": True if state.get("volunteer") else False,
-        "Languages": [airtable_volunteers.search("Language", identifier)[0]["id"] for language in state["languages"]],
+        "Volunteer Interest": True,
         "Timezone": user["tz_label"],
         "Experience": state["experience"],
-        "Management Interest": "Management / Leadership" in state["tasks"],
-        "Privacy Policy": True if state.get("privacy") else False,
-        })
- #
- #
- # 'Position ID':
- #            })
+        "Management Interest": "leadership" in state["options"],
+        "Privacy Policy": "privacy" in state["options"],
+        })["id"]
+    airtable_mails.create("Email Addresses", {
+        "Volunteer Record": record,
+        "Email Address": user["profile"]["email"],
+    })
 
     slack_client.chat_postMessage(
         channel="G012HLGCNKY",
