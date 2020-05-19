@@ -27,8 +27,12 @@ slack_event_adapter = SlackEventAdapter(
     "/events",
     application
     )
-volunteers=airtable.Airtable(
-    configuration["airtable_base"],
+airtable_volunteers=airtable.Airtable(
+    configuration["airtable_volunteers_base"],
+    api_key=configuration["airtable_token"]
+    )
+airtable_mails=airtable.Airtable(
+    configuration["airtable_mails_base"],
     api_key=configuration["airtable_token"]
     )
 function_prefix = os.environ.get("FUNCTION_PREFIX")
@@ -46,6 +50,24 @@ with open(data_directory / "elements" / "success.json", "r") as success_file:
 with open(data_directory / "template.md", "r") as template_file:
     message_template = template_file.read()
 
+
+def format_object(object, *arguments, **keyword_arguments):
+    """Applies the `str.format()` method to a nested JSON-like object."""
+    if type(object) is dict:
+        return {
+            format_object(key, *arguments, **keyword_arguments):
+            format_object(value, *arguments, **keyword_arguments)
+            for key, value in object.items()
+            }
+    elif type(object) is list:
+        return [
+            format_object(item, *arguments, **keyword_arguments)
+            for item in object
+            ]
+    elif type(object) is str:
+        return object.format(*arguments, **keyword_arguments)
+    else:
+        return object
 
 def handle_form_submission(action):
     def extract(value):
@@ -68,37 +90,49 @@ def handle_form_submission(action):
     ]
     user = slack_client.users_info(user=action["user"]["id"])["user"]
 
-    volunteers.create(configuration["airtable_table"], {
+    print(json.dumps(state), json.dumps(user))
+
+    airtable_volunteers.create(configuration["airtable_table"], {
         "Slack Handle": user["profile"]["display_name_normalized"],
         "Slack User ID":  user["id"],
+
         # "Email": "",
-        # "Profession": "",
-        # "External Organization": "",
-        "Volunteer Interest": True,
-        # # "Weekly Capacity": "",
-        # # "Languages": "",
-        # # "Industry": "",
+        "Profession": state["profession"],
+        "External Organization": state["organization"],
+        "Weekly Capacity": state["availability"],
+        "Skills": state["skills"],
+
+        # "Equipment": "",
+        "Industry": [airtable_volunteers.search("Language", identifier)[0]["id"] for language in state["languages"]],
+
         # "City": "",
+        # # "Country": "",
         # "State/Province": "",
         # "Zip Code": "",
-        # # "Country": "",
-        "Timezone": user["tz_label"],
-        # # "Skills": "",
-        "Additional Skills": "; ".join(labels),
-        # "Equipment": "",
-        # "Experience": "",
-        "Management Interest": False,
-        "Privacy Policy": True,
-        })
 
-    # slack_client.chat_postMessage(
-    #     channel="G012HLGCNKY",
-    #     link_names=True,
-    #     text=
-    #     user=action["user"]["id"]
-    #     skills=", ".join(state["skills"] + state["languages"])
-    #     reasons=state["reasons"]
-    #     )
+        "Volunteer Interest": True if state.get("volunteer") else False,
+        "Languages": [airtable_volunteers.search("Language", identifier)[0]["id"] for language in state["languages"]],
+        "Timezone": user["tz_label"],
+        "Additional Skills":
+        "Experience": state["experience"],
+        "Management Interest": "Management / Leadership" in state["tasks"],
+        "Privacy Policy": True if state.get("privacy") else False,
+        })
+ #
+ #
+ # 'Position ID':
+ #            })
+
+    slack_client.chat_postMessage(
+        channel="G012HLGCNKY",
+        link_names=True,
+        text=format_object(
+            introduction,
+            user=action["user"]["id"]
+            skills=", ".join(state["skills"] + state["languages"])
+            reasons=state["reasons"]
+            )
+        )
 
 
 @application.route("/interactivity", methods=["POST"])

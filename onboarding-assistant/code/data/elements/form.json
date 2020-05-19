@@ -1,180 +1,206 @@
 {
-	"type": "modal",
-	"title": {
-		"type": "plain_text",
-		"text": "Tell us about yourself",
-		"emoji": true
-	},
-	"submit": {
-		"type": "plain_text",
-		"text": "Submit",
-		"emoji": true
-	},
-	"close": {
-		"type": "plain_text",
-		"text": "Cancel",
-		"emoji": true
-	},
-	"blocks": [
-		{"block_id":"countries",
-			"type": "input",
-			"element": {
-				"action_id": "countries:10",
-				"type": "multi_external_select",
-				"min_query_length": 2,
-				"placeholder": {
-					"type": "plain_text",
-					"emoji": true,
-					"text": "Location"
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "I live in...",
-				"emoji": true
-			}
-		},
-		{"block_id":"languages",
-			"type": "input",
-			"element": {
-				"action_id": "languages:10",
-				"type": "multi_external_select",
-				"min_query_length": 2,
-				"placeholder": {
-					"type": "plain_text",
-					"emoji": true,
-					"text": "Languages"
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "I speak...",
-				"emoji": true
-			}
-		},
-		{
-			"type": "divider"
-		},
-		{"block_id":"skills",
-			"type": "input",
-			"element": {
-				"action_id": "skills:5",
-				"type": "multi_external_select",
-				"min_query_length": 1,
-				"placeholder": {
-					"type": "plain_text",
-					"emoji": true,
-					"text": "Skills"
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "My top skills are...",
-				"emoji": true
-			}
-		},
-		{"block_id":"tasks",
-			"type": "input",
-			"element": {
-				"action_id": "tasks",
-				"min_query_length": 0,
-				"type": "multi_external_select",
-				"placeholder": {
-					"type": "plain_text",
-					"emoji": true,
-					"text": "Tasks"
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "I want to help with...",
-				"emoji": true
-			}
-		},
-{			"type": "divider"
-		},
-		{"block_id":"availability",
-			"type": "input",
-			"element": {
-				"type": "static_select",
-				"placeholder": {
-					"type": "plain_text",
-					"emoji": true,
-					"text": "Hours / week"
-				},
-				"options": [
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "2 hours a week",
-							"emoji": true
-						},
-						"value": "very-low-availability"
-					},
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "10 hours a week",
-							"emoji": true
-						},
-						"value": "low-availability"
-					},
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "20 hours a week",
-							"emoji": true
-						},
-						"value": "mid-availability"
-					},
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "40 hours a week or more",
-							"emoji": true
-						},
-						"value": "high-avaliabilty"
-					}
-				]
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "I woud be able to help for a maximum of...",
-				"emoji": true
-			}
-		},
-		{"block_id":"reasons",
-			"type": "input",
-			"element": {
-				"type": "plain_text_input",
-				"multiline": true,
-				"placeholder": {
-					"type": "plain_text",
-					"text": "Reasons",
-					"emoji": true
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "I've joined because...",
-				"emoji": true
-			}
-		},
-		{"block_id":"referral",
-			"type": "input",
-			"element": {
-				"type": "plain_text_input",
-				"placeholder": {
-					"type": "plain_text",
-					"text": "Source",
-					"emoji": true
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "I've heard about this community through...",
-				"emoji": true
-			}
-		}
-	]
+    "type": "modal",
+    "title": {
+        "type": "plain_text",
+        "text": "My App",
+        "emoji": true
+    },
+    "submit": {
+        "type": "plain_text",
+        "text": "Submit",
+        "emoji": true
+    },
+    "close": {
+        "type": "plain_text",
+        "text": "Cancel",
+        "emoji": true
+    },
+    "blocks": [
+        {
+            "block_id": "countries",
+            "type": "input",
+            "element": {
+                "action_id": "countries:10",
+                "type": "multi_external_select",
+                "min_query_length": 2,
+                "placeholder": {
+                    "type": "plain_text",
+                    "emoji": true,
+                    "text": "Location"
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "I live in...",
+                "emoji": true
+            }
+        },
+        {
+            "block_id": "languages",
+            "type": "input",
+            "element": {
+                "action_id": "languages:10",
+                "type": "multi_external_select",
+                "min_query_length": 2,
+                "placeholder": {
+                    "type": "plain_text",
+                    "emoji": true,
+                    "text": "Languages"
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "I speak...",
+                "emoji": true
+            }
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "block_id": "skills",
+            "type": "input",
+            "element": {
+                "action_id": "skills:5",
+                "type": "multi_external_select",
+                "min_query_length": 1,
+                "placeholder": {
+                    "type": "plain_text",
+                    "emoji": true,
+                    "text": "Skills"
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "My top skills are...",
+                "emoji": true
+            }
+        },
+        {
+            "block_id": "profession",
+            "type": "input",
+            "element": {
+                "type": "plain_text_input",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Profession",
+                    "emoji": true
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "My profession is...",
+                "emoji": true
+            }
+        },
+        {
+            "block_id": "",
+            "type": "input",
+			"optional": true,
+            "element": {
+                "type": "plain_text_input",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Organization / University",
+                    "emoji": true
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "I work for / study at...",
+                "emoji": true
+            }
+        },
+        {
+            "block_id": "tasks",
+            "type": "input",
+            "element": {
+                "action_id": "tasks",
+                "min_query_length": 0,
+                "type": "multi_external_select",
+                "placeholder": {
+                    "type": "plain_text",
+                    "emoji": true,
+                    "text": "Tasks"
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "I want to help with...",
+                "emoji": true
+            }
+        },
+        {
+            "block_id": "experience",
+            "type": "input",
+            "element": {
+                "type": "plain_text_input",
+                "multiline": true,
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Experience",
+                    "emoji": true
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "My experience is...",
+                "emoji": true
+            }
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "block_id": "availability",
+            "type": "input",
+            "element": {
+                "type": "static_select",
+                "placeholder": {
+                    "type": "plain_text",
+                    "emoji": true,
+                    "text": "Hours / week"
+                },
+                "options": [
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "text": "2 hours a week",
+                            "emoji": true
+                        },
+                        "value": "2"
+                    },
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "text": "10 hours a week",
+                            "emoji": true
+                        },
+                        "value": "10"
+                    },
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "text": "20 hours a week",
+                            "emoji": true
+                        },
+                        "value": "20"
+                    },
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "text": "40 hours a week or more",
+                            "emoji": true
+                        },
+                        "value": "40"
+                    }
+                ]
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "I woud be able to help for a maximum of...",
+                "emoji": true
+            }
+        }
+    ]
 }

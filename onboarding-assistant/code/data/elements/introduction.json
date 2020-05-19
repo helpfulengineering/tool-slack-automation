@@ -18,7 +18,7 @@
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "*I've joined because...*\n{reason}"
+                "text": "*My experience is...*\n{experience}"
             }
         }
     ]
