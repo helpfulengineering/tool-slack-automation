@@ -24,6 +24,6 @@ module.exports.menu = async event => {
 
 function query(string, source, limit = undefined) {
   // Not implemented yet: dynamic (external) data sources.
-  let results = fuzzyaldrin.filter(data[source], string);
+  let results = string ? fuzzyaldrin.filter(data[source], string) : data[source];
   return results.slice(0, limit);
 }
