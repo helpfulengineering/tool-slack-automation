@@ -82,12 +82,6 @@ def handle_form_submission(action):
         field: extract(value)
         for field, value in action["view"]["state"]["values"].items()
         }
-    labels = [
-        f"{name}:{value}"
-        for name, item in state.items()
-        for value in item
-        if type(item) is list
-    ]
     user = slack_client.users_info(user=action["user"]["id"])["user"]
 
     print(json.dumps(state), json.dumps(user))
