@@ -127,9 +127,8 @@ def handle_form_submission(action):
         link_names=True,
         text=format_object(
             introduction,
-            user=action["user"]["id"]
+            user=action["user"]["id"],
             skills=", ".join(state["skills"] + state["languages"])
-            reasons=state["reasons"]
             )
         )
 
