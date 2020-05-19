@@ -113,7 +113,6 @@ def handle_form_submission(action):
         "Volunteer Interest": True if state.get("volunteer") else False,
         "Languages": [airtable_volunteers.search("Language", identifier)[0]["id"] for language in state["languages"]],
         "Timezone": user["tz_label"],
-        "Additional Skills":
         "Experience": state["experience"],
         "Management Interest": "Management / Leadership" in state["tasks"],
         "Privacy Policy": True if state.get("privacy") else False,
