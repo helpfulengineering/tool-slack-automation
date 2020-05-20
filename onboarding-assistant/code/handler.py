@@ -2,6 +2,7 @@ import os
 import json
 import matcher
 import hashlib
+import requests
 import boto3
 from pathlib import Path
 from slackeventsapi import SlackEventAdapter
@@ -55,6 +56,21 @@ with open(data_directory / "elements" / "introduction.json", "r") as introductio
 with open(data_directory / "template.md", "r") as template_file:
     message_template = template_file.read()
 
+def analytics(user, category, action):
+    user = hashlib.sha256(user.encode('ascii')).hexdigest()
+    requests.post(
+        "https://www.google-analytics.com/collect",
+        data={
+            "tid": "UA-167293353-1",
+            "ec": category,
+            "ea": action,
+            "t": "event",
+            "uid": user,
+            "aip": "1",
+            "v": "1"
+            }
+        )
+
 def airtable_filter_formula(field, value):
     return "{" + field.replace("{", r"\{").replace("}", r"\}") + "} = '" + value.replace("'", r"\'").replace("\\", "\\\\") + "'"
 def airtable_create_record(table, field, value):
@@ -98,6 +114,7 @@ def format_object(object, *arguments, **keyword_arguments):
         return object
 
 def handle_form(event, context = None):
+    analytics(event["event"]["user"]["id"], "form", "submit")
     action = event
     def extract(value):
         value = list(value.values())[0]
@@ -210,6 +227,7 @@ def handle_team_join(event):
         link_names=True,
         text=""
         )
+    analytics(event["event"]["user"]["id"], "form", "delivery")
     return ""
 
 
@@ -217,6 +235,7 @@ def handle_team_join(event):
 @slack_event_adapter.on("message")
 def handle_message(event):
     event = event["event"]
+    print(event)
     if 'bot_profile' in event:
         return
     if 'thread_ts' in event:
