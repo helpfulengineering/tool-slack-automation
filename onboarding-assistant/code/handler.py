@@ -167,6 +167,7 @@ def handle_form(event, context = None):
         suggestion += "\n\nRecommended channels\n" + channels
     if jobs:
         suggestion += "\n\nRecommended jobs\n" + jobs
+    suggestion += "\n\n _Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=action["user"]["id"])
     slack_client.chat_postMessage(
         channel=action["user"]["id"],
         link_names=True,

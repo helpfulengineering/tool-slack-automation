@@ -1,44 +1,50 @@
 {
-    "blocks": [
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":wave: *Hi <@{user}>! we're happy you're here!*"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":fire: *To get started,* click the green button below and fill the volunteer form so we can recommend you some great places to start contributing."
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":mag: *Curious about what’s going on?* Read the <https://docs.google.com/document/d/1O5vzovJIWzPQyBln4KiOaLThFtb9DqWuYr115_2AlEU/edit?usp=sharing|onboarding sheet> and check out the <https://airtable.com/shrZ8pIj3rV6BAqdq/tblaQ1M283TuaV2Im?blocks=hide|current projects> as well as the <https://airtable.com/shrwgNtBUAzuciV0j/tbl5Bqnjl3JRKD7qP|open volunteer jobs>."
+			}
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"type": "mrkdwn",
+					"text": "You can ask for help anywhere, specially from moderators :moderator:"
+				}
+			]
+		},
         {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": ":wave: *Hi <@{user}>! we're happy you're here!*"
-            }
-        },
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": ":fire: *Critical first steps for every new member*\n1. Click the button below to *fill the volunteer form*, so we can recommend you some great places to start contributing.\n2. Add your profession or main skill to your Slack profile by clicking on <@{user}> in the top left.\n3. Ask for help anywhere, especially from moderators :moderator:."
-            }
-        },
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": ":question:*Curious about what’s going on here?*\n1. Read our <https://docs.google.com/document/d/1O5vzovJIWzPQyBln4KiOaLThFtb9DqWuYr115_2AlEU/edit?usp=sharing|*Slack Onboarding Sheet*>!\n2. Check out our <https://airtable.com/shrZ8pIj3rV6BAqdq/tblaQ1M283TuaV2Im?blocks=hide|*current projects*> and <https://airtable.com/shrwgNtBUAzuciV0j/tbl5Bqnjl3JRKD7qP|*open volunteer jobs*>."
-            }
-        },
-        {
-            "type": "divider"
-        },
-        {
-            "type": "actions",
-            "elements": [
-                {
-                    "type": "button",
-                    "action_id": "show_form",
-                    "style": "primary",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "Fill the volunteer form",
-                        "emoji": true
-                    },
-                    "value": "show_form"
-                }
-            ]
-        }
-    ]
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"action_id": "show_form",
+					"style": "primary",
+					"text": {
+						"type": "plain_text",
+						"text": "Fill the volunteer form",
+						"emoji": true
+					},
+					"value": "show_form"
+				}
+			]
+		}
+	]
 }
