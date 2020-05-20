@@ -164,7 +164,10 @@ def handle_interactivity():
 
     elif action["type"] == "block_actions":
         if action["actions"][0]["action_id"] == "show_form":
-            slack_client.views_open(trigger_id=action["trigger_id"], view=form)
+            slack_client.views_open(
+                trigger_id=action["trigger_id"],
+                view=format_object(form, session=action["trigger_id"])
+                )
         return ""
 
     elif action["type"] == "view_submission":
