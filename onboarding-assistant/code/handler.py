@@ -137,7 +137,7 @@ def handle_form_submission(action):
         channel="G012HLGCNKY",
         link_names=True,
         text="",
-        blocks=introduction_message,
+        **introduction_message,
         username=user["profile"]["display_name"],
         icon_url=user["profile"]["image_512"]
         )
