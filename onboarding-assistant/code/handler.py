@@ -101,7 +101,7 @@ def handle_form(event, context = None):
     action = event
     def extract(value):
         value = list(value.values())[0]
-        if value["type"] == "static_select":
+        if value["type"] in ("static_select", "external_select"):
             return [value["selected_option"]["value"]]
         elif value["type"] in ("multi_external_select", "checkboxes"):
             return [item["value"] for item in value["selected_options"]]
