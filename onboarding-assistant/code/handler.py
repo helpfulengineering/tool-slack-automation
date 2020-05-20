@@ -125,12 +125,12 @@ def handle_form(event, context = None):
 
         # "Equipment": "",
 
-        "City": address["administrative_area_level_2"],
-        "Country (new)": address["country"],
-        "State/Province": address["administrative_area_level_1"],
-        "Zip Code": address["postal_code"],
-        "Geolocation": address["address"],
-        "Geocode": address["location"],
+        "City": address.get(["administrative_area_level_2", ""),
+        "Country (new)": address.get(["country", ""),
+        "State/Province": address.get(["administrative_area_level_1", ""),
+        "Zip Code": address.get(["postal_code", ""),
+        "Geolocation": address.get(["address", ""),
+        "Geocode": address.get(["location", ""),
 
 
         "Volunteer Interest": True,
