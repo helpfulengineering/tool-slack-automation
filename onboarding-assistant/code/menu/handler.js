@@ -64,7 +64,6 @@ var r =  await client
     },
     timeout: 1000, // milliseconds
   })
-  console.log(session);
     if (r.data.status === Status.OK) {
         return r.data.predictions.map(prediction => {
             return {value: prediction.reference, text: prediction.description}
