@@ -64,7 +64,7 @@ var r =  await client
   })
     if (r.data.status === Status.OK) {
         return r.data.predictions.map(prediction => {
-            return {value: prediction.reference: prediction.description}
+            return {value: prediction.reference, text: prediction.description}
         })
     } else {
       console.log(r.data.error_message);
