@@ -28,7 +28,7 @@ module.exports.menu = async event => {
   let payload = JSON.parse(event.body.payload);
   if(payload && payload.type == "block_suggestion") {
     return {"options":
-        query(payload.value, ...payload.action_id.split(":")).map(item => {
+        (await query(payload.value, ...payload.action_id.split(":"))).map(item => {
             return {
                 "text": {"type": "plain_text", "text": item.text},
                 "value": item.value
