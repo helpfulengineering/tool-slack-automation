@@ -234,7 +234,8 @@ def handle_team_join(event):
 @slack_event_adapter.on("message")
 def handle_message(event):
     event = event["event"]
-    print(event)
+    if event.get("subtype") == "bot_message":
+        return
     if 'bot_profile' in event:
         return
     if 'thread_ts' in event:
