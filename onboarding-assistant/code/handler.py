@@ -130,7 +130,7 @@ def handle_form(event, context = None):
         "State/Province": address.get("administrative_area_level_1", ""),
         "Zip Code": address.get("postal_code", ""),
         "Geolocation": address.get("address", ""),
-        "Geocode": address.get("location", ""),
+        "Geocode": " ".join(address.get("location", [])),
 
 
         "Volunteer Interest": True,
