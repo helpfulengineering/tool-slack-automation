@@ -22,7 +22,7 @@
 			"element": {
 				"action_id": "location:5:{session}",
 				"type": "multi_external_select",
-				"min_query_length": 2,
+				"min_query_length": 3,
 				"placeholder": {
 					"type": "plain_text",
 					"emoji": true,
