@@ -136,7 +136,9 @@ def handle_form_submission(action):
     slack_client.chat_postMessage(
         channel="G012HLGCNKY",
         link_names=True,
-        text=introduction_message
+        text=introduction_message,
+        username=user["profile"]["display_name"],
+        icon_url=user["profile"]["image_512"]
         )
 
     suggestion = ""
