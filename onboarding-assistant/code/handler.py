@@ -112,6 +112,7 @@ def handle_form(event, context = None):
         for field, value in action["view"]["state"]["values"].items()
         }
     user = slack_client.users_info(user=action["user"]["id"])["user"]
+    print(state["location"])
     address = resolve_address(state["location"])
     record = airtable_volunteers.create("Volunteers", {
         "Slack Handle": user["profile"]["display_name_normalized"],
