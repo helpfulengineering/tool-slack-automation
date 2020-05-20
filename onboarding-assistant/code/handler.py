@@ -10,6 +10,9 @@ from flask import Flask, request, make_response, Response
 from unittest import mock
 import slack
 
+import googlemaps
+
+
 
 application = Flask(__name__)
 configuration = json.loads(
@@ -63,6 +66,19 @@ def airtable_unique_records(table, field, values):
         response += [existing[0]["id"] if existing else airtable_create_record(table, field, value)]
     return list(set(response))
 
+def resolve_address(identifier):
+    gmaps=googlemaps.Client(key=configuration["google_token"])
+    result = gmaps.place(
+                identifier,
+                fields=["address_component", "geometry", "formatted_address"])["result"]
+    return {**{
+    type: component["long_name"]
+    for component in result["address_components"] for type in ["postal_code",
+    "administrative_area_level_2",
+    "administrative_area_level_1",
+    "country"] if type in component["types"]
+    }, "address": result["formatted_address"], "location": [result["geometry"]["location"]["lat"], result["geometry"]["location"]["lng"]]}
+
 def format_object(object, *arguments, **keyword_arguments):
     """Applies the `str.format()` method to a nested JSON-like object."""
     if type(object) is dict:
@@ -96,7 +112,7 @@ def handle_form(event, context = None):
         for field, value in action["view"]["state"]["values"].items()
         }
     user = slack_client.users_info(user=action["user"]["id"])["user"]
-
+    address = resolve_address(state["location"])
     record = airtable_volunteers.create("Volunteers", {
         "Slack Handle": user["profile"]["display_name_normalized"],
         "Slack User ID": user["id"],
@@ -109,11 +125,13 @@ def handle_form(event, context = None):
 
         # "Equipment": "",
 
-        # "City": "",
-        # # "Country": "",
-        # "State/Province": "",
-        # "Zip Code": "",
-        # "Geolocation": "",
+        "City": address["administrative_area_level_2"],
+        "Country (new)": address["country"],
+        "State/Province": address["administrative_area_level_1"],
+        "Zip Code": address["postal_code"],
+        "Geolocation": address["address"],
+        "Geocode": address["location"],
+
 
         "Volunteer Interest": True,
         "Timezone": user["tz_label"],
