@@ -136,14 +136,15 @@ def handle_form_submission(action):
     slack_client.chat_postMessage(
         channel="G012HLGCNKY",
         link_names=True,
-        text=introduction_message,
+        text="",
+        blocks=introduction_message,
         username=user["profile"]["display_name"],
         icon_url=user["profile"]["image_512"]
         )
 
     suggestion = ""
-    channels = "\n".join(matcher.recommend_channels(model, " ".join(state[skills])))
-    jobs = "\n".join(matcher.recommend_jobs(model, " ".join(state[skills])))
+    channels = "\n".join(matcher.recommend_channels(model, " ".join(state["skills"])))
+    jobs = "\n".join(matcher.recommend_jobs(model, " ".join(state["skills"])))
     if jobs:
         suggestion += "\n*Recommended jobs*\n{}\n".format(jobs)
     message = message_template.format(suggestion=suggestion)
