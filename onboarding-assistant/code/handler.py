@@ -114,8 +114,7 @@ def format_object(object, *arguments, **keyword_arguments):
         return object
 
 def handle_form(event, context = None):
-    analytics(event["event"]["user"]["id"], "form", "submit")
-    action = event
+    analytics(event["user"]["id"], "form", "submit")
     def extract(value):
         value = list(value.values())[0]
         if value["type"] in ("static_select", "external_select"):
@@ -126,9 +125,9 @@ def handle_form(event, context = None):
             return value["value"]
     state = {
         field: extract(value)
-        for field, value in action["view"]["state"]["values"].items()
+        for field, value in event["view"]["state"]["values"].items()
         }
-    user = slack_client.users_info(user=action["user"]["id"])["user"]
+    user = slack_client.users_info(user=event["user"]["id"])["user"]
     address = resolve_address(state["location"].pop())
     record = airtable_volunteers.create("Volunteers", {
         "Slack Handle": user["profile"]["display_name_normalized"],
@@ -163,7 +162,7 @@ def handle_form(event, context = None):
 
     introduction_message = format_object(
         introduction,
-        user=action["user"]["id"],
+        user=event["user"]["id"],
         skills=", ".join(state["skills"] + state["languages"]),
         experience=state["experience"]
         )
@@ -184,9 +183,9 @@ def handle_form(event, context = None):
         suggestion += "\n\nRecommended channels\n" + channels
     if jobs:
         suggestion += "\n\nRecommended jobs\n" + jobs
-    suggestion += "\n\n If you have manufacturing or prototyping resources, please complete the <https://kik.to/tq|Hardware Volunteer Form> too.\n_Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=action["user"]["id"])
+    suggestion += "\n\n If you have manufacturing or prototyping resources, please complete the <https://kik.to/tq|Hardware Volunteer Form> too.\n_Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=event["user"]["id"])
     slack_client.chat_postMessage(
-        channel=action["user"]["id"],
+        channel=event["user"]["id"],
         link_names=True,
         text=suggestion
         )
