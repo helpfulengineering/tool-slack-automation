@@ -111,7 +111,7 @@ def handle_form(event, context = None):
         field: extract(value)
         for field, value in action["view"]["state"]["values"].items()
         }
-    print(state)
+    print(event)
     user = slack_client.users_info(user=action["user"]["id"])["user"]
     address = resolve_address(state["location"].pop())
     record = airtable_volunteers.create("Volunteers", {
