@@ -75,7 +75,7 @@ def resolve_address(identifier):
     type: component["long_name"]
     for component in result["address_components"] for type in ["postal_code",
     "administrative_area_level_2",
-    "administrative_area_level_1",
+    "administrative_area_level_1", "locality",
     "country"] if type in component["types"]
     }, "address": result["formatted_address"], "location": [result["geometry"]["location"]["lat"], result["geometry"]["location"]["lng"]]}
 
@@ -125,7 +125,7 @@ def handle_form(event, context = None):
 
         # "Equipment": "",
 
-        "City": address.get("administrative_area_level_2", ""),
+        "City": address.get("locality") or address.get("administrative_area_level_2", ""),
         "Country (new)": address.get("country", ""),
         "State/Province": address.get("administrative_area_level_1", ""),
         "Zip Code": address.get("postal_code", ""),

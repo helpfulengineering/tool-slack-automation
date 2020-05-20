@@ -59,11 +59,12 @@ var r =  await client
     params: {
       input: string,
       sessiontoken: session,
+      types: "(regions)",
       key: (await get_configuration()).google_token,
     },
     timeout: 1000, // milliseconds
   })
-  console.log(session)
+  console.log(session);
     if (r.data.status === Status.OK) {
         return r.data.predictions.map(prediction => {
             return {value: prediction.reference, text: prediction.description}
