@@ -152,7 +152,7 @@ def handle_form(event, context = None):
         )
     if "privacy" in state["options"]:
         slack_client.chat_postMessage(
-            channel="G012HLGCNKY",
+            channel="CUXD81R6X",
             link_names=True,
             text="",
             **introduction_message,
@@ -203,7 +203,7 @@ def handle_interactivity():
 
 
 @slack_event_adapter.on("team_join")
-def handle_team_join(event, test=False):
+def handle_team_join(event, test=True):
     if not test:
         return ""
     slack_client.chat_postMessage(
