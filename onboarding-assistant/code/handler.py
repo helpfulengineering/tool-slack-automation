@@ -98,16 +98,14 @@ def handle_form_submission(action):
 
     record = airtable_volunteers.create("Volunteers", {
         "Slack Handle": user["profile"]["display_name_normalized"],
-        "Slack User ID":  user["id"],
-
-        # "Email": "",
+        "Slack User ID": user["id"],
         "Profession": state["profession"],
         "External Organization": state["organization"],
         "Weekly Capacity (new)": int(state["availability"].pop()),
-
         "Skills": airtable_unique_records("Skills", "Name", state["skills"]),
         "Languages": airtable_unique_records("Languages", "Language", state["languages"]),
         "Industry": airtable_unique_records("Industries", "Name", state["industries"]),
+        
         # "Equipment": "",
 
         # "City": "",
@@ -142,17 +140,17 @@ def handle_form_submission(action):
         icon_url=user["profile"]["image_512"]
         )
 
-    suggestion = ""
-    channels = "\n".join(matcher.recommend_channels(model, " ".join(state["skills"])))
-    jobs = "\n".join(matcher.recommend_jobs(model, " ".join(state["skills"])))
+    channels = "\n".join(matcher.recommend_channels(model, " ".join(state["skills"]) + state["experience"]+" ".join(state["industries"])))
+    jobs = "\n".join(matcher.recommend_jobs(model, " ".join(state["skills"]) + state["experience"]+" ".join(state["industries"])))
+    suggestion = "*Thanks for introducing yourself!*"
+    if channels:
+        suggestion += "\n\nRecommended channels\n" + channels
     if jobs:
-        suggestion += "\n*Recommended jobs*\n{}\n".format(jobs)
-    message = message_template.format(suggestion=suggestion)
-
+        suggestion += "\n\nRecommended jobs\n" + jobs
     print(slack_client.chat_postMessage(
         channel=action["user"]["id"],
         link_names=True,
-        text=message
+        text=suggestion
         ))
 
 @application.route("/interactivity", methods=["POST"])
