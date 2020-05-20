@@ -1,4 +1,5 @@
-# Slack introductions bot
+# Onboarding assistant
+<!--
 [`./code/menu/static.json`](./code/menu/static.json)
 ## Deployment instructions
 1. Create an app in Slack
@@ -11,3 +12,4 @@
 8. In Slack, put that url into the event subscriptions
 9. In Slack under event subscriptions, subscribe to message.channels under "Subscribe to Bot Events"
 10. Invite the bot to the channel you want it in
+-->
