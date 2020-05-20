@@ -25,6 +25,7 @@ function get_configuration() {
 }
 
 module.exports.menu = async event => {
+    if (event.source === 'serverless-plugin-warmup') return "";
   let payload = JSON.parse(event.body.payload);
   if(payload && payload.type == "block_suggestion") {
     return {"options":

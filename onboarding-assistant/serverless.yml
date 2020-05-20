@@ -3,6 +3,7 @@ service: onboarding-assistant
 plugins:
   - serverless-prune-plugin
   - serverless-python-requirements
+  - serverless-plugin-warmup
   - serverless-wsgi
 
 provider:
@@ -60,6 +61,7 @@ functions:
           method: any
           path: search
           integration: lambda
+    warmup: true
     handler: code/menu/handler.menu
     memorySize: 128
     runtime: nodejs12.x

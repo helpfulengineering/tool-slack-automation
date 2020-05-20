@@ -7,6 +7,7 @@
     "@googlemaps/google-maps-services-js": "^2.6.1",
     "aws-sdk": "^2.680.0",
     "fuzzaldrin-plus": "^0.6.0",
+    "serverless-plugin-warmup": "^4.9.0",
     "serverless-prune-plugin": "^1.4.2",
     "serverless-python-requirements": "^5.1.0",
     "serverless-wsgi": "^1.7.4"
