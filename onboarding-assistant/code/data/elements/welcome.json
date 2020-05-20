@@ -18,14 +18,7 @@
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": ":question:*Curious about what’s going on here?*\n1. Read our <https://kik.to/US|*Getting Started Guide*>!\n2. Check out our <https://airtable.com/shrZ8pIj3rV6BAqdq/tblaQ1M283TuaV2Im?blocks=hide|*current projects*> and <https://airtable.com/shrwgNtBUAzuciV0j/tbl5Bqnjl3JRKD7qP|*open volunteer jobs*>."
-            }
-        },
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "* _New using Slack? See <https://docs.google.com/document/d/1O5vzovJIWzPQyBln4KiOaLThFtb9DqWuYr115_2AlEU/edit#heading=h.iqagloszsy22|*this guide*>._"
+                "text": ":question:*Curious about what’s going on here?*\n1. Read our <https://docs.google.com/document/d/1O5vzovJIWzPQyBln4KiOaLThFtb9DqWuYr115_2AlEU/edit?usp=sharing|*Slack Onboarding Sheet*>!\n2. Check out our <https://airtable.com/shrZ8pIj3rV6BAqdq/tblaQ1M283TuaV2Im?blocks=hide|*current projects*> and <https://airtable.com/shrwgNtBUAzuciV0j/tbl5Bqnjl3JRKD7qP|*open volunteer jobs*>."
             }
         },
         {
