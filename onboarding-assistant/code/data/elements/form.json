@@ -215,6 +215,16 @@
             "block_id": "options",
             "element": {
                 "type": "checkboxes",
+                "initial_options": [
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Share this information with the community",
+                            "emoji": true
+                        },
+                        "value": "privacy"
+                    }
+                ],
                 "options": [
                     {
                         "text": {
