@@ -4,41 +4,14 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": ":wave: Hi <@{user}>! we're happy *you're here!* :wave:\n\nWe'd like to get to know you *a little bit better*. :hugging_face:"
+				"text": ":wave: *Hi <@{user}>! we're happy you're here!*"
 			}
 		},
 		{
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "Please *press the button* to add your *skill set*, which will be automatically posted to #introductions"
-			},
-			"accessory": {
-				"action_id": "show_form",
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "Add your skill set",
-					"emoji": true
-				},
-				"value": "show_form"
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "It will also notify our onboarding crew that you joined and they *will reach out* to help you find *the right project* :rocket:"
-			}
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":fire: *Critical first steps for every new member*\n1. Add your profession or main skill to your Slack profile (click on <@{user}> in the top left).\n2. Ask for help anywhere, especially from moderators :moderator:."
+				"text": ":fire: *Critical first steps for every new member*\n1. Click the button below to *fill the volunteer form*, so we can recommend you some great places to start contributing.\n2. Add your profession or main skill to your Slack profile by clicking on <@{user}> in the top left.\n3. Ask for help anywhere, especially from moderators :moderator:."
 			}
 		},
 		{
@@ -54,6 +27,25 @@
 				"type": "mrkdwn",
 				"text": "* _New using Slack? See <https://slack-redir.net/link?url=https%3A%2F%2Fdocs.google.com%2Fdocument%2Fd%2F1TvBJxCk8Rhz4bgzrWQBXlklVvN9i-cYOqpB143MgamM%2Fedit%3Fusp%3Dsharing|*this guide*>._"
 			}
+		},	{
+			"type": "divider"
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"action_id": "show_form",
+					"style": "primary",
+					"text": {
+						"type": "plain_text",
+						"text": "Fill the volunteer form",
+						"emoji": true
+					},
+					"value": "show_form"
+				}
+			]
 		}
+
 	]
 }
