@@ -28,13 +28,8 @@ provider:
 
 
 functions:
-  message_actions:
-    events:
-      -
-        http:
-          method: any
-          path: /message_actions
-    handler: wsgi_handler.handler
+  form:
+    handler: code/handler.handle_form
     memorySize: 128
     runtime: python3.8
     timeout: 25

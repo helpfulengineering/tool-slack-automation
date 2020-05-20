@@ -81,7 +81,8 @@ def format_object(object, *arguments, **keyword_arguments):
     else:
         return object
 
-def handle_form_submission(action):
+def handle_form(event, context = None):
+    action = event
     def extract(value):
         value = list(value.values())[0]
         if value["type"] == "static_select":
@@ -105,7 +106,7 @@ def handle_form_submission(action):
         "Skills": airtable_unique_records("Skills", "Name", state["skills"]),
         "Languages": airtable_unique_records("Languages", "Language", state["languages"]),
         "Industry": airtable_unique_records("Industries", "Name", state["industries"]),
-        
+
         # "Equipment": "",
 
         # "City": "",
@@ -140,18 +141,18 @@ def handle_form_submission(action):
         icon_url=user["profile"]["image_512"]
         )
 
-    channels = "\n".join(matcher.recommend_channels(model, " ".join(state["skills"]) + state["experience"]+" ".join(state["industries"])))
-    jobs = "\n".join(matcher.recommend_jobs(model, " ".join(state["skills"]) + state["experience"]+" ".join(state["industries"])))
+    channels = "\n".join(matcher.recommend_channels(model, " ".join(state["skills"]) + state["experience"]+state["profession"]+" ".join(state["industries"])))
+    jobs = "\n".join(matcher.recommend_jobs(model, " ".join(state["skills"]) + state["experience"]+state["profession"]+" ".join(state["industries"])))
     suggestion = "*Thanks for introducing yourself!*"
     if channels:
         suggestion += "\n\nRecommended channels\n" + channels
     if jobs:
         suggestion += "\n\nRecommended jobs\n" + jobs
-    print(slack_client.chat_postMessage(
+    slack_client.chat_postMessage(
         channel=action["user"]["id"],
         link_names=True,
         text=suggestion
-        ))
+        )
 
 @application.route("/interactivity", methods=["POST"])
 def handle_interactivity():
@@ -167,7 +168,11 @@ def handle_interactivity():
         return ""
 
     elif action["type"] == "view_submission":
-        handle_form_submission(action)
+        boto3.client('lambda').invoke(
+            FunctionName=os.environ.get("FUNCTION_PREFIX") + "form",
+            Payload=json.dumps(action),
+            InvocationType='Event'
+            )
         return success
 
     else:

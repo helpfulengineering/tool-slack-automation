@@ -17,10 +17,10 @@
 	},
 	"blocks": [
 		{
-			"block_id": "countries",
+			"block_id": "location",
 			"type": "input",
 			"element": {
-				"action_id": "countries:10",
+				"action_id": "location:5:{session}",
 				"type": "multi_external_select",
 				"min_query_length": 2,
 				"placeholder": {
