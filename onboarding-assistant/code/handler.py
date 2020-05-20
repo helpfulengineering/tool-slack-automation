@@ -167,7 +167,7 @@ def handle_form(event, context = None):
         suggestion += "\n\nRecommended channels\n" + channels
     if jobs:
         suggestion += "\n\nRecommended jobs\n" + jobs
-    suggestion += "\n\n _Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=action["user"]["id"])
+    suggestion += "\n\n If you have manufacturing or prototyping resources, please complete the <https://kik.to/tq|Hardware Volunteer Form> too.\n_Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=action["user"]["id"])
     slack_client.chat_postMessage(
         channel=action["user"]["id"],
         link_names=True,
@@ -203,9 +203,7 @@ def handle_interactivity():
 
 
 @slack_event_adapter.on("team_join")
-def handle_team_join(event, test=True):
-    if not test:
-        return ""
+def handle_team_join(event):
     slack_client.chat_postMessage(
         **format_object(welcome, user=event["event"]["user"]["id"]),
         channel=event["event"]["user"]["id"],
