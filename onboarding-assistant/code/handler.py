@@ -195,7 +195,7 @@ def handle_interactivity():
             Payload=json.dumps(action),
             InvocationType='Event'
             )
-        return success
+        return "" # return success for a new view (success.json)
 
     else:
         return ""
