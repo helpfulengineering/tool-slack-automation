@@ -47,6 +47,8 @@ with open(data_directory / "elements" / "welcome.json", "r") as welcome_file:
     welcome = json.load(welcome_file)
 with open(data_directory / "elements" / "success.json", "r") as success_file:
     success = json.load(success_file)
+with open(data_directory / "elements" / "introduction.json", "r") as introduction_file:
+    introduction = json.load(introduction_file)
 with open(data_directory / "template.md", "r") as template_file:
     message_template = template_file.read()
 
@@ -125,16 +127,29 @@ def handle_form_submission(action):
         "Email Address": user["profile"]["email"],
     })
 
+    introduction_message = format_object(
+        introduction,
+        user=action["user"]["id"],
+        skills=", ".join(state["skills"] + state["languages"])
+        )
     slack_client.chat_postMessage(
         channel="G012HLGCNKY",
         link_names=True,
-        text=format_object(
-            introduction,
-            user=action["user"]["id"],
-            skills=", ".join(state["skills"] + state["languages"])
-            )
+        text=introduction_message
         )
 
+    suggestion = ""
+    channels = "\n".join(matcher.recommend_channels(model, " ".join(state[skills])))
+    jobs = "\n".join(matcher.recommend_jobs(model, " ".join(state[skills])))
+    if jobs:
+        suggestion += "\n*Recommended jobs*\n{}\n".format(jobs)
+    message = message_template.format(suggestion=suggestion)
+
+    print(slack_client.chat_postMessage(
+        channel=action["user"]["id"],
+        link_names=True,
+        text=message
+        ))
 
 @application.route("/interactivity", methods=["POST"])
 def handle_interactivity():
