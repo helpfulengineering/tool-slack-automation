@@ -1,51 +1,51 @@
 {
-	"blocks": [
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":wave: *Hi <@{user}>! we're happy you're here!*"
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":fire: *Critical first steps for every new member*\n1. Click the button below to *fill the volunteer form*, so we can recommend you some great places to start contributing.\n2. Add your profession or main skill to your Slack profile by clicking on <@{user}> in the top left.\n3. Ask for help anywhere, especially from moderators :moderator:."
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":question:*Curious about what’s going on here?*\n1. Read our <https://kik.to/US|*Getting Started Guide*>!\n2. Check out our <https://airtable.com/shrZ8pIj3rV6BAqdq/tblaQ1M283TuaV2Im?blocks=hide|*current projects*> and <https://airtable.com/shrwgNtBUAzuciV0j/tbl5Bqnjl3JRKD7qP|*open volunteer jobs*>."
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "* _New using Slack? See <https://slack-redir.net/link?url=https%3A%2F%2Fdocs.google.com%2Fdocument%2Fd%2F1TvBJxCk8Rhz4bgzrWQBXlklVvN9i-cYOqpB143MgamM%2Fedit%3Fusp%3Dsharing|*this guide*>._"
-			}
-		},	{
-			"type": "divider"
-		},
-		{
-			"type": "actions",
-			"elements": [
-				{
-					"type": "button",
-					"action_id": "show_form",
-					"style": "primary",
-					"text": {
-						"type": "plain_text",
-						"text": "Fill the volunteer form",
-						"emoji": true
-					},
-					"value": "show_form"
-				}
-			]
-		}
-
-	]
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": ":wave: *Hi <@{user}>! we're happy you're here!*"
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": ":fire: *Critical first steps for every new member*\n1. Click the button below to *fill the volunteer form*, so we can recommend you some great places to start contributing.\n2. Add your profession or main skill to your Slack profile by clicking on <@{user}> in the top left.\n3. Ask for help anywhere, especially from moderators :moderator:."
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": ":question:*Curious about what’s going on here?*\n1. Read our <https://kik.to/US|*Getting Started Guide*>!\n2. Check out our <https://airtable.com/shrZ8pIj3rV6BAqdq/tblaQ1M283TuaV2Im?blocks=hide|*current projects*> and <https://airtable.com/shrwgNtBUAzuciV0j/tbl5Bqnjl3JRKD7qP|*open volunteer jobs*>."
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "* _New using Slack? See <https://slack-redir.net/link?url=https%3A%2F%2Fdocs.google.com%2Fdocument%2Fd%2F1TvBJxCk8Rhz4bgzrWQBXlklVvN9i-cYOqpB143MgamM%2Fedit%3Fusp%3Dsharing|*this guide*>._"
+            }
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "actions",
+            "elements": [
+                {
+                    "type": "button",
+                    "action_id": "show_form",
+                    "style": "primary",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Fill the volunteer form",
+                        "emoji": true
+                    },
+                    "value": "show_form"
+                }
+            ]
+        }
+    ]
 }
