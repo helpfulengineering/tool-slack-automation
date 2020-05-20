@@ -203,18 +203,15 @@ def handle_interactivity():
 
 @slack_event_adapter.on("team_join")
 def handle_team_join(event, test=False):
-    event = event["event"]
-    welcome["blocks"][0]["text"]["text"] = (
-        welcome["blocks"][0]["text"]["text"].format(user=event["user"]["id"])
+    if not test:
+        return ""
+    slack_client.chat_postMessage(
+        **format_object(welcome, user=event["event"]["user"]["id"]),
+        channel=event["event"]["user"]["id"],
+        link_names=True,
+        text=""
         )
-    if test:
-        slack_client.chat_postMessage(
-            channel=event["user"]["id"],
-            link_names=True,
-            **welcome,
-            text=""
-            )
-    return make_response("", 200)
+    return ""
 
 
 # DEPRECATED
