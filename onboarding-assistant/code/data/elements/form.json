@@ -112,21 +112,21 @@
 			}
 		},
 		{
-			"block_id": "tasks",
+			"block_id": "industries",
 			"type": "input",
 			"element": {
-				"action_id": "tasks",
+				"action_id": "industries",
 				"min_query_length": 0,
 				"type": "multi_external_select",
 				"placeholder": {
 					"type": "plain_text",
 					"emoji": true,
-					"text": "Tasks"
+					"text": "Industries"
 				}
 			},
 			"label": {
 				"type": "plain_text",
-				"text": "I want to help with...",
+				"text": "My work is related with...",
 				"emoji": true
 			}
 		},

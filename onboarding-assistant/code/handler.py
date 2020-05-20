@@ -107,7 +107,7 @@ def handle_form_submission(action):
 
         "Skills": airtable_unique_records("Skills", "Name", state["skills"]),
         "Languages": airtable_unique_records("Languages", "Language", state["languages"]),
-        "Industry": airtable_unique_records("Industries", "Name", state["tasks"]),
+        "Industry": airtable_unique_records("Industries", "Name", state["industries"]),
         # "Equipment": "",
 
         # "City": "",
@@ -130,7 +130,8 @@ def handle_form_submission(action):
     introduction_message = format_object(
         introduction,
         user=action["user"]["id"],
-        skills=", ".join(state["skills"] + state["languages"])
+        skills=", ".join(state["skills"] + state["languages"]),
+        experience=state["experience"]
         )
     slack_client.chat_postMessage(
         channel="G012HLGCNKY",
