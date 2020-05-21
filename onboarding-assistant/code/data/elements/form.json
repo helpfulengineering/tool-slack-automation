@@ -215,6 +215,7 @@
             "block_id": "options",
             "element": {
                 "type": "checkboxes",
+                "optional": true,
                 "initial_options": [
                     {
                         "text": {
