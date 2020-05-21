@@ -200,7 +200,7 @@ def handle_interactivity():
         return ""
 
     elif action["type"] == "block_actions":
-        analytics(event["event"]["user"]["id"], "form", "fill")
+        analytics(action["user"]["id"], "form", "fill")
         if action["actions"][0]["action_id"] == "show_form":
             slack_client.views_open(
                 trigger_id=action["trigger_id"],
