@@ -199,6 +199,7 @@ def handle_interactivity():
         return ""
 
     elif action["type"] == "block_actions":
+        analytics(event["event"]["user"]["id"], "form", "fill")
         if action["actions"][0]["action_id"] == "show_form":
             slack_client.views_open(
                 trigger_id=action["trigger_id"],
@@ -226,7 +227,7 @@ def handle_team_join(event):
         link_names=True,
         text=""
         )
-    analytics(event["event"]["user"]["id"], "form", "delivery")
+    analytics(event["event"]["user"]["id"], "team", "join")
     return ""
 
 
@@ -277,12 +278,29 @@ def handle_message(event):
         return
     if 'text' not in event["event"]:
         return
+    channels = "\n".join(set(["#skill-software-devops", "#skill-medical-personnel", "#skill-project-managers-office", "#skill-research", "#skill-software-datascience", "#skill-writer"] + matcher.recommend_channels(model, " ".join(state["skills"]) + state["experience"]+state["profession"]+" ".join(state["industries"]))))
+    jobs = "\n".join(matcher.recommend_jobs(model, " ".join(state["skills"]) + state["experience"]+state["profession"]+" ".join(state["industries"])))
+    if channels:
+        suggestion += "\n\nRecommended channels\n" + channels
+    if jobs:
+        suggestion += "\n\nRecommended jobs\n" + jobs
+    suggestion += "\n\n If you have manufacturing or prototyping resources, please complete the <https://kik.to/tq|Hardware Volunteer Form> too.\n_Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=event["user"]["id"])
+    welcome_copy = dict(**welcome)
+    welcome_copy["blocks"] += [{
+        "type": "context",
+        "elements": [
+            {
+                "type": "mrkdwn",
+                "text": suggestion
+            }
+        ]
+    }]
     slack_client.chat_postMessage(
-        **format_object(welcome, user=event["event"]["user"]),
+        **format_object(welcome_copy, user=event["event"]["user"]),
         channel=event["event"]["channel"],
         thread_ts=event["event"]["ts"],
         link_names=True,
-        text=""
+        text=suggestion
         )
     return
 
