@@ -183,7 +183,7 @@ def handle_form(event, context = None):
         suggestion += "\n\nRecommended channels\n" + channels
     if jobs:
         suggestion += "\n\nRecommended jobs\n" + jobs
-    suggestion += "\n\n If you have manufacturing or prototyping resources, please complete the <https://kik.to/tq|Hardware Volunteer Form> too.\n_Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=event["user"]["id"])
+    suggestion += "\n\n _Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=event["user"]["id"])
     slack_client.chat_postMessage(
         channel=event["user"]["id"],
         link_names=True,
@@ -282,10 +282,9 @@ def handle_message(event):
     channels = "\n".join(set(["#skill-software-devops", "#skill-medical-personnel", "#skill-project-managers-office", "#skill-research", "#skill-software-datascience", "#skill-writer"] + matcher.recommend_channels(model, event["event"]["text"])))
     jobs = "\n".join(matcher.recommend_jobs(model, event["event"]["text"]))
     if channels:
-        suggestion += "\n\nRecommended channels\n" + channels
+        suggestion += "\n\n*Recommended channels*\n" + channels
     if jobs:
-        suggestion += "\n\nRecommended jobs\n" + jobs
-    suggestion += "\n\n If you have manufacturing or prototyping resources, please complete the <https://kik.to/tq|Hardware Volunteer Form> too.\n_Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=event["event"]["user"])
+        suggestion += "\n\n*Recommended jobs*\n" + jobs
     welcome_copy = dict(**welcome)
     welcome_copy["blocks"] += [{
         "type": "context",

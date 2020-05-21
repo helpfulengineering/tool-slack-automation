@@ -41,17 +41,15 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": ":bulb: *Want to start a new project?* Talk about your idea on #discussion-new-projects and ask for a new channel at #new-channel-request"
+				"text": ":bulb: *Want to start a new project?* Talk about your idea on #discussion-new-projects and ask for a new channel at #new-channel-request."
 			}
 		},
 		{
-			"type": "context",
-			"elements": [
-				{
-					"type": "mrkdwn",
-					"text": "You can ask for help anywhere, specially from moderators :moderator:"
-				}
-			]
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":cog: *Have manufacturing or prototyping resources?* please complete the <https://kik.to/tq|Hardware Volunteer Form> too."
+			}
 		}
 	]
 }
