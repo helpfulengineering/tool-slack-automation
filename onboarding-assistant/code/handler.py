@@ -286,20 +286,18 @@ def handle_message(event):
         suggestion += "\n\n*Recommended channels*\n" + channels
     if jobs:
         suggestion += "\n\n*Recommended jobs*\n" + jobs
-    welcome_copy = dict(**welcome)
-    welcome_copy["blocks"] += [{
-        "type": "divider"
-    }, {
-        "type": "context",
-        "elements": [
-            {
-                "type": "mrkdwn",
-                "text": suggestion
-            }
-        ]
-    }]
     slack_client.chat_postMessage(
-        **format_object(welcome_copy, user=event["event"]["user"]),
+        **format_object({"blocks": welcome_copy["blocks"] + [{
+            "type": "divider"
+        }, {
+            "type": "context",
+            "elements": [
+                {
+                    "type": "mrkdwn",
+                    "text": suggestion
+                }
+            ]
+        }]}, user=event["event"]["user"]),
         channel=event["event"]["channel"],
         thread_ts=event["event"]["ts"],
         link_names=True,
