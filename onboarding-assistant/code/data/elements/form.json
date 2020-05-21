@@ -213,9 +213,9 @@
                 "emoji": true
             },
             "block_id": "options",
+            "optional": true,
             "element": {
                 "type": "checkboxes",
-                "optional": true,
                 "initial_options": [
                     {
                         "text": {
