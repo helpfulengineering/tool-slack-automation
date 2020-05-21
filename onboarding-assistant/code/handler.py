@@ -288,6 +288,8 @@ def handle_message(event):
         suggestion += "\n\n*Recommended jobs*\n" + jobs
     welcome_copy = dict(**welcome)
     welcome_copy["blocks"] += [{
+        "type": "divider"
+    }, {
         "type": "context",
         "elements": [
             {
