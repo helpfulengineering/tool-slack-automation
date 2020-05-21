@@ -217,14 +217,9 @@ def handle_interactivity():
     else:
         return ""
 
-@application.before_request
-def log_request_info():
-    application.logger.debug('Headers: %s', request.headers)
-    application.logger.debug('Body: %s', request.get_data())
 
 @slack_event_adapter.on("team_join")
 def handle_team_join(event):
-    print(event)
     slack_client.chat_postMessage(
         **format_object(welcome, user=event["event"]["user"]["id"]),
         channel=event["event"]["user"]["id"],
