@@ -287,7 +287,7 @@ def handle_message(event):
     if jobs:
         suggestion += "\n\n*Recommended jobs*\n" + jobs
     slack_client.chat_postMessage(
-        **format_object({"blocks": welcome_copy["blocks"] + [{
+        **format_object({"blocks": welcome["blocks"] + [{
             "type": "divider"
         }, {
             "type": "context",
