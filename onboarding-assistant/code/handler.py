@@ -123,7 +123,7 @@ def handle_form(event, context = None):
         elif value["type"] in ("multi_external_select", "checkboxes"):
             return [item["value"] for item in value["selected_options"]]
         elif value["type"] == "plain_text_input":
-            return value.get("value")
+            return value.get("value", "")
     state = {
         field: extract(value)
         for field, value in event["view"]["state"]["values"].items()
