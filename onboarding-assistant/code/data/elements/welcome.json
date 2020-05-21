@@ -27,29 +27,30 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": ":fire: *To get started,* click the green button above and fill the volunteer form so we can recommend you the best places to go."
+				"text": ":fire: *To get started,* fill the volunteer form (*above*) and check the <https://airtable.com/shrwgNtBUAzuciV0j/tbl5Bqnjl3JRKD7qP|*job board*> for open positions."
 			}
 		},
+
+
 		{
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": ":mag: *Curious about what’s going on?* Read the <https://docs.google.com/document/d/1O5vzovJIWzPQyBln4KiOaLThFtb9DqWuYr115_2AlEU/edit?usp=sharing|onboarding sheet> and check out the <https://airtable.com/shrZ8pIj3rV6BAqdq/tblaQ1M283TuaV2Im?blocks=hide|current projects> as well as the <https://airtable.com/shrwgNtBUAzuciV0j/tbl5Bqnjl3JRKD7qP|job board>."
+				"text": ":hammer_and_wrench: *Have manufacturing or prototyping resources?* please complete the <https://kik.to/tq|*hardware volunteer form*> too."
 			}
-		},
-		{
+		},{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":mag: *Curious about what’s going on?* Read the <https://docs.google.com/document/d/1O5vzovJIWzPQyBln4KiOaLThFtb9DqWuYr115_2AlEU/edit?usp=sharing|*onboarding sheet*> and check out our <https://airtable.com/shrZ8pIj3rV6BAqdq/tblaQ1M283TuaV2Im?blocks=hide|*current projects*>."
+			}
+		},{
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
 				"text": ":bulb: *Want to start a new project?* Talk about your idea on #discussion-new-projects and ask for a new channel at #new-channel-request."
 			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":hammer_and_wrench: *Have manufacturing or prototyping resources?* please complete the <https://kik.to/tq|Hardware Volunteer Form> too."
-			}
 		}
+
 	]
 }
