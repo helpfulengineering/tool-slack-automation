@@ -66,6 +66,7 @@ def analytics(user, category, action):
             "ea": action,
             "t": "event",
             "uid": user,
+            "cid": 555,
             "aip": "1",
             "v": "1"
             }
