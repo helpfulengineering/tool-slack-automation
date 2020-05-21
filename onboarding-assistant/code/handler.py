@@ -285,7 +285,7 @@ def handle_message(event):
         suggestion += "\n\nRecommended channels\n" + channels
     if jobs:
         suggestion += "\n\nRecommended jobs\n" + jobs
-    suggestion += "\n\n If you have manufacturing or prototyping resources, please complete the <https://kik.to/tq|Hardware Volunteer Form> too.\n_Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=event["user"]["id"])
+    suggestion += "\n\n If you have manufacturing or prototyping resources, please complete the <https://kik.to/tq|Hardware Volunteer Form> too.\n_Tip: you can also add your profession or main skill to your profile (click over <@{user}> on the top left)._".format(user=event["event"]["user"])
     welcome_copy = dict(**welcome)
     welcome_copy["blocks"] += [{
         "type": "context",
