@@ -220,6 +220,7 @@ def handle_interactivity():
 
 @slack_event_adapter.on("team_join")
 def handle_team_join(event):
+    print(event)
     slack_client.chat_postMessage(
         **format_object(welcome, user=event["event"]["user"]["id"]),
         channel=event["event"]["user"]["id"],
