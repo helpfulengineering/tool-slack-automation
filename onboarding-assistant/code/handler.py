@@ -230,38 +230,23 @@ def handle_team_join(event):
     return ""
 
 
-# DEPRECATED
 @slack_event_adapter.on("message")
 def handle_message(event):
-    event = event["event"]
-    if event.get("subtype") == "bot_message":
+    if event["event"].get("subtype") == "bot_message":
         return
-    if 'bot_profile' in event:
+    if 'bot_profile' in event["event"]:
         return
-    if 'thread_ts' in event:
+    if 'thread_ts' in event["event"]:
         return
-    if 'text' not in event:
+    if 'text' not in event["event"]:
         return
-    suggestion = ""
-    channels = "\n".join(matcher.recommend_channels(model, event["text"]))
-    jobs = "\n".join(matcher.recommend_jobs(model, event["text"]))
-    if channels:
-        suggestion += (
-            "\n*Recommended channels*\n" + channels + "\n"
-            "(#skill channels have people with similar skills in them; "
-            "#discussion channels talk about a topic; #project channels "
-            "are working on a project)\n"
-            )
-    if jobs:
-        suggestion += "\n*Recommended jobs*\n{}\n".format(jobs)
-    message = message_template.format(suggestion=suggestion)
-
-    print(slack_client.chat_postMessage(
-        channel=event["channel"],
-        thread_ts=event["ts"],
+    slack_client.chat_postMessage(
+        **format_object(welcome, user=event["event"]["user"]["id"]),
+        channel=event["event"]["channel"],
+        thread_ts=event["event"]["ts"],
         link_names=True,
-        text=message
-        ))
+        text=""
+        )
     return
 
 
