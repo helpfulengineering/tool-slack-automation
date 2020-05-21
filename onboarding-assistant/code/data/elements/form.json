@@ -94,24 +94,6 @@
             }
         },
         {
-            "block_id": "organization",
-            "type": "input",
-            "optional": true,
-            "element": {
-                "type": "plain_text_input",
-                "placeholder": {
-                    "type": "plain_text",
-                    "text": "Organization / University",
-                    "emoji": true
-                }
-            },
-            "label": {
-                "type": "plain_text",
-                "text": "I work for / study at...",
-                "emoji": true
-            }
-        },
-        {
             "block_id": "industries",
             "type": "input",
             "element": {
@@ -145,6 +127,24 @@
             "label": {
                 "type": "plain_text",
                 "text": "My experience is...",
+                "emoji": true
+            }
+        },
+        {
+            "block_id": "organization",
+            "type": "input",
+            "optional": true,
+            "element": {
+                "type": "plain_text_input",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Organization / University",
+                    "emoji": true
+                }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "I work for / study at...",
                 "emoji": true
             }
         },
