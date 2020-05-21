@@ -278,6 +278,7 @@ def handle_message(event):
         return
     if 'text' not in event["event"]:
         return
+    suggestion = ""
     channels = "\n".join(set(["#skill-software-devops", "#skill-medical-personnel", "#skill-project-managers-office", "#skill-research", "#skill-software-datascience", "#skill-writer"] + matcher.recommend_channels(model, event["event"]["text"])))
     jobs = "\n".join(matcher.recommend_jobs(model, event["event"]["text"]))
     if channels:
