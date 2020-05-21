@@ -209,7 +209,7 @@
             "type": "input",
             "label": {
                 "type": "plain_text",
-                "text": " ",
+                "text": "Options",
                 "emoji": true
             },
             "block_id": "options",
