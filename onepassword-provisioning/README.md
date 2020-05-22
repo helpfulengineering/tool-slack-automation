@@ -10,7 +10,7 @@
 
 4. The application will automatically provision an account with the display name of the requestor and the provided address.
 
-5. If the process, the application will send a warning to the same channel with a unique identifier that allows to lookup the request with CloudWatch.
+5. If the process fails, the application will send a warning to the same channel with a unique identifier that allows to lookup the request in CloudWatch.
 
 6. A member of the 1Password **Provision Managers** group will review the request from the web interface.
 
