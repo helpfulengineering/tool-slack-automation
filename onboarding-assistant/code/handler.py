@@ -196,7 +196,7 @@ def handle_interactivity():
     action = json.loads(request.form["payload"])
 
     if action["type"] == "shortcut":
-        handle_team_join({"event": action}, True)
+        handle_team_join({"event": action})
         return ""
 
     elif action["type"] == "block_actions":
