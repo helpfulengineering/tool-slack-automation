@@ -203,7 +203,7 @@ def handle_interactivity():
         analytics(action["user"]["id"], "form", "fill")
         if action["actions"][0]["action_id"] == "show_form":
             if airtable_volunteers.get(
-                table,
+                "Volunteers",
                 filter_by_formula=airtable_filter_formula("Slack User ID", action["user"]["id"])
             )["records"]:
                 slack_client.chat_postMessage(
