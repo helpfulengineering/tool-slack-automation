@@ -202,10 +202,20 @@ def handle_interactivity():
     elif action["type"] == "block_actions":
         analytics(action["user"]["id"], "form", "fill")
         if action["actions"][0]["action_id"] == "show_form":
-            slack_client.views_open(
-                trigger_id=action["trigger_id"],
-                view=format_object(form, session=action["trigger_id"])
-                )
+            if airtable_volunteers.get(
+                table,
+                filter_by_formula=airtable_filter_formula("Slack User ID", action["user"]["id"])
+            )["records"]:
+                slack_client.chat_postMessage(
+                    text="You've already filled the form",
+                    channel=event["event"]["user"]["id"],
+                    link_names=True,
+                    )
+            else:
+                slack_client.views_open(
+                    trigger_id=action["trigger_id"],
+                    view=format_object(form, session=action["trigger_id"])
+                    )
         return ""
 
     elif action["type"] == "view_submission":
