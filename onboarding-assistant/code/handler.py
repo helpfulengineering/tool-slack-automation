@@ -208,7 +208,7 @@ def handle_interactivity():
             )["records"]:
                 slack_client.chat_postMessage(
                     text="You've already filled the form",
-                    channel=event["event"]["user"]["id"],
+                    channel=action["user"]["id"],
                     link_names=True,
                     )
             else:
