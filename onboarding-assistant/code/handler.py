@@ -69,6 +69,9 @@ def analytics(user, category, action):
             "cid": 555,
             "aip": "1",
             "v": "1"
+            },
+            headers={
+                "user-agent": "Onboarding assitant"
             }
         )
 
