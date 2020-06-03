@@ -134,7 +134,7 @@ def handle_form(event, context = None):
     user = slack_client.users_info(user=event["user"]["id"])["user"]
     address = resolve_address(state["location"].pop())
     record = airtable_volunteers.create("Volunteers", {
-        "Slack Handle": user["profile"]["display_name_normalized"],
+        "Slack Handle": user["profile"]["display_name_normalized"] or user["profile"]["real_name_normalized"],
         "Slack User ID": user["id"],
         "Profession": state["profession"],
         "External Organization": state.get("organization",""),
@@ -176,7 +176,7 @@ def handle_form(event, context = None):
             link_names=True,
             text="",
             **introduction_message,
-            username=user["profile"]["display_name"],
+            username=user["profile"]["display_name_normalized"] or user["profile"]["real_name_normalized"],
             icon_url=user["profile"]["image_512"]
             )
 
