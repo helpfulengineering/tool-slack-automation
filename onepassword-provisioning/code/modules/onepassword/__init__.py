@@ -29,8 +29,10 @@ def authenticate(timeout=60) -> dict:
     """
     Gets and refreshes an 1Password session token from SecretsManager.
     """
+    secret = _retrieve_secret()
     with tempfile.TemporaryDirectory() as directory:
-        secret = _retrieve_secret()
+        if (state := secret.get("onepassword_state")):
+            _extract_artifacts(state.split(":")[0], directory)
         token = _run_binary(
             "signin",
             "--raw",
