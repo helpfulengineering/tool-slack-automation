@@ -2,6 +2,7 @@
 1Password command-line interface wrapper with AWS SecretsManager integration.
 """
 import subprocess
+import datetime
 import tempfile
 import pathlib
 import shutil
@@ -95,6 +96,16 @@ def _pack_artifacts(directory: pathlib.Path) -> str:
     Packs the given directory contents into a Base64 .tar.gz string.
     """
     path = pathlib.Path(directory) / "artifacts"
+
+    sessions = [
+        [session.stat().st_mtime, session]
+        for session in path.glob('com.agilebits.op.*/.*')
+        if session.is_file()
+        ]
+    sessions.sort(key=lambda item: item[0])
+    for old_session in sessions[:-1]:
+        old_session[1].unlink()
+
     shutil.make_archive(path, "gztar", directory)
     with open(path.with_suffix('.tar.gz'), "rb") as artifacts_file:
         return base64.b64encode(artifacts_file.read()).decode('ascii')
