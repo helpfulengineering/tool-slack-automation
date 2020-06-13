@@ -95,21 +95,22 @@ def _pack_artifacts(directory: pathlib.Path) -> str:
     """
     Packs the given directory contents into a Base64 .tar.gz string.
     """
-    path = pathlib.Path(directory) / "artifacts"
+    output = pathlib.Path(directory) / "artifacts"
 
     sessions = [
         [session.stat().st_mtime, session]
-        for session in path.glob('com.agilebits.op.*/.*')
+        for session in pathlib.Path(directory).glob('com.agilebits.op.*/.*')
         if session.is_file()
         ]
     sessions.sort(key=lambda item: item[0])
     for old_session in sessions[:-1]:
         old_session[1].unlink()
 
-    shutil.make_archive(path, "gztar", directory)
-    with open(path.with_suffix('.tar.gz'), "rb") as artifacts_file:
-        return base64.b64encode(artifacts_file.read()).decode('ascii')
-    path.with_suffix('.tar.gz').unlink()
+    shutil.make_archive(output, "gztar", directory)
+    with open(output.with_suffix('.tar.gz'), "rb") as artifacts_file:
+        artifacts = base64.b64encode(artifacts_file.read()).decode('ascii')
+    output.with_suffix('.tar.gz').unlink()
+    return artifacts
 
 
 def _extract_artifacts(artifacts: str, directory: pathlib.Path):
