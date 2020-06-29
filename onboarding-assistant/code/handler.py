@@ -170,15 +170,15 @@ def handle_form(event, context = None):
         skills=", ".join(state["skills"] + state["languages"]),
         experience=state["experience"]
         )
-    if "privacy" in state["options"]:
-        slack_client.chat_postMessage(
-            channel="CUXD81R6X",
-            link_names=True,
-            text="",
-            **introduction_message,
-            username=user["profile"]["display_name_normalized"] or user["profile"]["real_name_normalized"],
-            icon_url=user["profile"]["image_512"]
-            )
+    # if "privacy" in state["options"]:
+    slack_client.chat_postMessage(
+        channel="CUXD81R6X",
+        link_names=True,
+        text="",
+        **introduction_message,
+        username=user["profile"]["display_name_normalized"] or user["profile"]["real_name_normalized"],
+        icon_url=user["profile"]["image_512"]
+        )
 
     channels = "\n".join(matcher.recommend_channels(model, " ".join(state["skills"]) + state["experience"]+state["profession"]+" ".join(state["industries"])))
     jobs = "\n".join(matcher.recommend_jobs(model, " ".join(state["skills"]) + state["experience"]+state["profession"]+" ".join(state["industries"])))
