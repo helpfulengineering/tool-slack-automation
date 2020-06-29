@@ -220,7 +220,7 @@
                     {
                         "text": {
                             "type": "plain_text",
-                            "text": "Share this information with the community",
+                            "text": "I opt in to the occasional email newsletter. I know I can opt out at any time by unsubscribing on the email I receive.",
                             "emoji": true
                         },
                         "value": "privacy"
@@ -238,7 +238,7 @@
                     {
                         "text": {
                             "type": "plain_text",
-                            "text": "Share this information with the community",
+                            "text": "I opt in to the occasional email newsletter. I know I can opt out at any time by unsubscribing on the email I receive.",
                             "emoji": true
                         },
                         "value": "privacy"
