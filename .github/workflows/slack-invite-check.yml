@@ -14,7 +14,7 @@ jobs:
               curl --silent --location https://www.helpfulengineering.org/slack
           )
       - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2.0.2
+        uses: rtCamp/action-slack-notify@ca2febb266f78a54a245d815081549c522099b76
         env:
           SLACK_CHANNEL: 'skill-software-devops'
           SLACK_COLOR: 'warning'
