@@ -1,0 +1,27 @@
+name: Slack Invite Checker
+
+on:
+  schedule: 
+    - cron: 0 * * * *
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check if the invite link is valid
+      run: |
+        grep -Eo '(&quot;|")isSharedInviteError(&quot;|")\s*:\s*true' <(
+            curl --silent --location https://www.helpfulengineering.org/slack
+        )
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2.0.2
+      env:
+        SLACK_CHANNEL: 'skill-software-devops'
+        SLACK_COLOR: 'warning'
+        SLACK_ICON: ':warning:'
+        SLACK_MESSAGE: 'Notifying <@U010GTB1X8Q> to update the link on the web page...\n_Please check <https://github.com/helpfulengineering/tool-slack-automation/blob/master/.github/workflows/slack-invite-check.yml|this file> if you want to change the bot behavior._>'
+        SLACK_TITLE: 'Slack invite link is down'
+        SLACK_USERNAME: 'Invite link checker'
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      if: ${{ failure() }}
+
