@@ -19,9 +19,12 @@ jobs:
           SLACK_CHANNEL: 'skill-software-devops'
           SLACK_COLOR: 'warning'
           SLACK_ICON: ':warning:'
-          SLACK_MESSAGE: 'Notifying <@U010GTB1X8Q> to update the link on the web page...\n_Please check <https://github.com/helpfulengineering/tool-slack-automation/blob/master/.github/workflows/slack-invite-check.yml|this file> if you want to change the bot behavior._>'
+          SLACK_MESSAGE: |
+            Notifying <@U010GTB1X8Q> to update <https://www.helpfulengineering.org/slack|the link on the web page>...
+            Please check <https://github.com/helpfulengineering/tool-slack-automation/blob/master/.github/workflows/slack-invite-check.yml|this file> if you want to change the bot behavior.
           SLACK_TITLE: 'Slack invite link is down'
           SLACK_USERNAME: 'Invite link checker'
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          MSG_MINIMAL: true
         if: ${{ failure() }}
 
