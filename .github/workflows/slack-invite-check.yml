@@ -14,14 +14,15 @@ jobs:
               curl --silent --location https://www.helpfulengineering.org/slack
           )
       - name: Slack Notification
-        uses: rtCamp/action-slack-notify@ca2febb266f78a54a245d815081549c522099b76
+        uses: rtCamp/action-slack-notify@v2.1.0
         env:
           SLACK_CHANNEL: 'skill-software-devops'
           SLACK_COLOR: 'warning'
           SLACK_ICON: ':warning:'
           SLACK_MESSAGE: |
             Notifying <@U010GTB1X8Q> to update <https://www.helpfulengineering.org/slack|the link on the web page>...
-            Please check <https://github.com/helpfulengineering/tool-slack-automation/blob/master/.github/workflows/slack-invite-check.yml|this file> if you want to change the bot behavior.
+          SLACK_FOOTER: |
+            <https://github.com/helpfulengineering/tool-slack-automation/blob/master/.github/workflows/slack-invite-check.yml|Click this text if you want to change the bot behavior.>
           SLACK_TITLE: 'Slack invite link is down'
           SLACK_USERNAME: 'Invite link checker'
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
