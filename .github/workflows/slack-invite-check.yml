@@ -2,7 +2,7 @@ name: Slack Invite Checker
 
 on:
   schedule: 
-    - cron: '0 0 * * *'
+    - cron: '0 0,6,12,18 * * *'
 
 jobs:
   check:
@@ -20,7 +20,10 @@ jobs:
           SLACK_COLOR: 'warning'
           SLACK_ICON: ':warning:'
           SLACK_MESSAGE: |
-            Notifying <@U010GTB1X8Q> to update <https://www.helpfulengineering.org/slack|the link on the web page>...
+            Our <https://www.helpfulengineering.org/slack|public invite link> is down and needs to be manually updated:
+            1. <https://slack.com/intl/en-es/help/articles/201330256-Invite-new-members-to-your-workspace#share-an-invite-link|Generate a new link> without expiry date; you may need to deactivate the previous one first.
+            2. Update the permanent redirect link <https://www.helpfulengineering.org/wp-admin/options-general.php?page=eps_redirects|on the administration dashboard> by using <https://start.1password.com/open/i?a=J3YBD4VIJZGH3ORXYSVY6UUFXY&h=helpfulengineering.1password.com&i=5vsbwaf2gk6n7ffyp6ycv3alhe&v=g26sfhnu37jcyc3lbwkbbzlr6i|these credentials>.
+            :robot_face: Carbon copy to <@U010GTB1X8Q>
           SLACK_FOOTER: |
             <https://github.com/helpfulengineering/tool-slack-automation/blob/master/.github/workflows/slack-invite-check.yml|Click this text if you want to change the bot behavior.>
           SLACK_TITLE: 'Slack invite link is down'
