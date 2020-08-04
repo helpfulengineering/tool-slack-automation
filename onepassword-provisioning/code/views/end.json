@@ -13,7 +13,7 @@
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": "You’ve applied for a :helpful: 1Password account. Once your request is approved, you’ll receive an activation email with instructions.\n\nPlease read the <https://github.com/helpfulengineering/devops/blob/master/documentation/guidance/credential-sharing.md|credential sharing guide> for more information."
+        "text": "You’ve successfully applied for a :helpful: 1Password account! Please *check your mail to confirm the request* and wait for our manual approval; it may take several hours depending on your timezone and our availability.\n\nIn the meanwhile, you can read this <https://github.com/helpfulengineering/devops/blob/master/documentation/guidance/credential-sharing.md|credential sharing guide> to get started."
       }
     }
   ]
