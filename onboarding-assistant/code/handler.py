@@ -138,6 +138,7 @@ def handle_form(event, context = None):
         "Slack User ID": user["id"],
         "Profession": state["profession"],
         "External Organization": state.get("organization",""),
+        "LinkedIn Profile URL": state.get("linkedin",""),
         "Weekly Capacity (new)": int(state["availability"].pop()),
         "Skills": airtable_unique_records("Skills", "Name", state["skills"]),
         "Languages": airtable_unique_records("Languages", "Language", state["languages"]),
