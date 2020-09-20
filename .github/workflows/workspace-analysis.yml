@@ -1,0 +1,28 @@
+name: Refresh workspace analysis data
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  push:
+    branches:
+      - '*'
+
+jobs:
+  run:
+    name: Update suggestion model
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Train suggestion model
+      uses: ./.github/actions/train-model
+
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v4
+      with:
+        add: "./onboarding-assistant/code/data/model.json"
+        author_name: Automatic commit from GitHub Actions
+        author_email: 0x2b3bfa0+git@googlemail.com
+        message: "Update suggestion model"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
