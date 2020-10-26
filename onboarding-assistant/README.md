@@ -1,15 +1,14 @@
 # Onboarding assistant
-<!--
-[`./code/menu/static.json`](./code/menu/static.json)
-## Deployment instructions
-1. Create an app in Slack
-2. Give it the scopes "channels:history" and "chat:write"
-3. Install it in your workspace
-4. In AWS, create a secret in Secrets Manager based on smsecrets.json.example but with the information from your bot in slack
-5. In your local environment, create local_config.yml based on local_config.yml.example and add the arn from Secrets Manager
-6. Deploy the lambda using serverless
-7. From AWS, get the url for your lambda from API Gateway
-8. In Slack, put that url into the event subscriptions
-9. In Slack under event subscriptions, subscribe to message.channels under "Subscribe to Bot Events"
-10. Invite the bot to the channel you want it in
--->
+
+## Common maintenance operations
+If you're in charge of updating this application and don't have prior
+experience with its internals, you may be interested in taking a look
+to some of the following common maintenance operations.
+
+### Modifying the user interface
+You can find all the user interface files at [`./code/modules/interface`](./code/modules/interface), in individual [JSON](https://en.wikipedia.org/wiki/JSON) files. These files can be easily edited with the [Slack Block Kit Builder](https://api.slack.com/tools/block-kit-builder) and [committed to this repository](https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/editing-files-in-your-repository). If you're not familiar with the syntax used by these messages, you can check the reference documentation [here](https://api.slack.com/reference/surfaces/formatting).
+
+### Modifying the form fields
+You'll need to edit the object-relation mappings under [`./code/modules/database`](./code/modules/database) and update the frontend fields by following the steps in the previous section.
+
+If you're interested in modifying the typeahead suggestions for some form fields, you'll need to edit the files under [`./code/menu`](./code/menu).

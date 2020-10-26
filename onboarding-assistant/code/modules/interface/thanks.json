@@ -1,0 +1,34 @@
+{
+  "blocks": [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Thanks for introducing yourself!*"
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Recommended channels*\n\n{channels}"
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Recommended jobs*\n\n{jobs}"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "Tip: you can add your profession or main skill to your profile (click over <@{user}> on the top left)."
+        }
+      ]
+    }
+  ]
+}

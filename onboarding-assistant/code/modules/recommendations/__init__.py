@@ -1,16 +1,20 @@
-"""
+"""Channel and job recommendation engine.
 This module uses a trained model and a list of categorized skills to obtain
 customized Slack channel recommendations from an introduction message.
-
->>> model = model.build(skills.train(), corpus.channels(), threshold=0.5)
->>> matcher.recommend_channels(model, "I'm a 40 year old physician with a cat")
-{"skill-medical-personnel": 0.8, "skill-pet-feeding": 0.2, ...}
+>>> recommendations.channels("I'm a data scientist", limit=1)
+["#skill-data-science"]
 """
-
 import re
+import json
+import pathlib
 
 
-def extract_categories(text, categories):
+with open(pathlib.Path(__file__).parent / "model.json") as model_file:
+    model = json.load(model_file)
+
+
+def categories(text, categories):
+    """Extracts categories from a model."""
     def match(skills, text):
         text = re.sub(r"\W+", " ", text.casefold())
         return sum([1 for skill in skills if f" {skill} " in f" {text} "])
@@ -25,9 +29,9 @@ def extract_categories(text, categories):
         }
 
 
-# FIXME: crippled normalization
-def recommend_channels(model, text, limit=3):
-    tokenized_text = extract_categories(text, model["categories"])
+def channels(text, default=None, model=model, limit=3):
+    """Recommends interesting channels by analyzing an introduction."""
+    tokenized_text = categories(text, model["categories"])
     total_skills = len(model["categories"])
     recommendations = {
         channel: sum([
@@ -44,8 +48,9 @@ def recommend_channels(model, text, limit=3):
         ][:limit]
 
 
-def recommend_jobs(model, text, limit=3):
-    recommendations = extract_categories(text, {
+def jobs(text, model=model, limit=3):
+    """Recommends interesting jobs by analyzing an introduction."""
+    recommendations = categories(text, {
         identifier: job["tags"] for identifier, job in model["jobs"].items()
         })
     return [

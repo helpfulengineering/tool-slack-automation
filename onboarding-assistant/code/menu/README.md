@@ -19,7 +19,7 @@ Serve search completion data to interactive Slack select menus.
 ```
 
 ## Dynamic source structure
-:warning: Not implemented yet
+:warning: Not fully implemented yet.
 
 ## Source selection format
 * Query to `source-1` without restricting the number of results:

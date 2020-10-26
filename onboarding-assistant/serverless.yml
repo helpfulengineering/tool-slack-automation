@@ -1,6 +1,7 @@
 service: onboarding-assistant
 
 plugins:
+  # - serverless-domain-manager
   - serverless-prune-plugin
   - serverless-python-requirements
   - serverless-plugin-warmup
@@ -8,6 +9,17 @@ plugins:
 
 provider:
   iamRoleStatements:
+    -
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Effect: Allow
+      Resource:
+        - { "Fn::GetAtt": ["ShortenerDynamoDbTable", "Arn" ] }
     -
       Action:
         - "secretsmanager:GetSecretValue"
@@ -26,11 +38,11 @@ provider:
   environment:
     SECRET_ARN: "${env:SECRET_ARN}"
     FUNCTION_PREFIX: "${self:service}-${self:provider.stage}-"
-
+    SHORTENER_TABLE: ${self:custom.shortenerDynamoDbTableName}
 
 functions:
   form:
-    handler: code/handler.handle_form
+    handler: code/handler.handle_form_submission
     memorySize: 128
     runtime: python3.8
     timeout: 25
@@ -54,19 +66,50 @@ functions:
     memorySize: 128
     runtime: python3.8
     timeout: 25
+  shortener:
+    events:
+      -
+        http:
+          method: any
+          path: /{any+}
+    handler: wsgi_handler.handler
+    memorySize: 128
+    runtime: python3.8
+    timeout: 25
   menu:
     events:
       -
         http:
           method: any
-          path: search
+          path: /search
           integration: lambda
     warmup: true
     handler: code/menu/handler.menu
     memorySize: 128
     runtime: nodejs12.x
 
+resources:
+  Resources:
+    ShortenerDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: code
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: code
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.shortenerDynamoDbTableName}
+
 custom:
+  # customDomain:
+  #   domainName: links.helpful.directory
+  #   basePath: ''
+  #   stage: ${self:provider.stage}
+  #   createRoute53Record: true
   pythonRequirements:
     dockerizePip: true
     fileName: code/requirements.txt
@@ -74,3 +117,4 @@ custom:
   wsgi:
     app: code/handler.application
     packRequirements: false
+  shortenerDynamoDbTableName: 'shortener-table-${self:provider.stage}'
