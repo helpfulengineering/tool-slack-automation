@@ -1,7 +1,7 @@
 service: onboarding-assistant
 
 plugins:
-  # - serverless-domain-manager
+  - serverless-domain-manager
   - serverless-prune-plugin
   - serverless-python-requirements
   - serverless-plugin-warmup
@@ -105,11 +105,11 @@ resources:
         TableName: ${self:custom.shortenerDynamoDbTableName}
 
 custom:
-  # customDomain:
-  #   domainName: links.helpful.directory
-  #   basePath: ''
-  #   stage: ${self:provider.stage}
-  #   createRoute53Record: true
+  customDomain:
+    domainName: links.helpful.directory
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: false
   pythonRequirements:
     dockerizePip: true
     fileName: code/requirements.txt

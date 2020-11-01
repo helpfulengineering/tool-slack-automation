@@ -116,7 +116,8 @@ def handle_redirect(path):
     if (item := shortener.expand(path)):
         link, information, visits = item
         analytics.event(information.get("user", ""), "link", link)
-        return make_response("Redirecting...", 301, {'Location': link})
+        headers = {"Location": link, "Cache-Control": "no-store"}
+        return make_response("Redirecting...", 302, headers)
     else:
         return make_response("Not found", 404)
 
@@ -181,13 +182,14 @@ def handle_message(event):
 
 
 @application.before_request
-def skip_retry():
+def ignore_retry():
+    """Ignores API retries to avoid duplicate requests with slow Lambdas."""
     if int(request.headers.get('X-Slack-Retry-Num', '0')):
         return make_response('', 200)
 
 
-if __name__ == "__main__":
-    application.run(
-        host="0.0.0.0",
-        port=80
-        )
+@application.after_request
+def skip_cache(request):
+    """Tells the client not to cache the responses."""
+    request.headers["Cache-Control"] = "no-store"
+    return request
