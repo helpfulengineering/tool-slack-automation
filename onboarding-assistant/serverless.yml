@@ -106,7 +106,7 @@ resources:
 
 custom:
   customDomain:
-    domainName: links.helpful.directory
+    domainName: 'links.helpful.directory'
     basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
