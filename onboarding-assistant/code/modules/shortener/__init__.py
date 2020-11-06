@@ -1,7 +1,7 @@
 """Link shortener with metadata support.
 This module provides link shortening capabilities with metadata support.
 >>> shortener.shorten("https://google.com", user="me")
->>> link, information = shortener.expand(_)
+>>> link, information, visits = shortener.expand(_)
 """
 import os
 import re
@@ -75,7 +75,8 @@ def replace(string, **information):
     def process(match):
         link = match.group("link")
         text = match.group("text")
-        return "<" + shorten(link, **information) + (text or "") + ">"
+        arguments = {"label": text.strip("|*_"), **information}
+        return "<" + shorten(link, **arguments) + (text or "") + ">"
     link_matcher = r"<(?P<link>[^#@][^<|>]+?)(?P<text>\|[^<|>]+)?>"
     return re.sub(link_matcher, process, string)
 

@@ -46,6 +46,11 @@ functions:
     memorySize: 128
     runtime: python3.8
     timeout: 25
+  analytics:
+    handler: analytics.event_worker
+    memorySize: 128
+    runtime: python3.8
+    timeout: 25
   events:
     events:
       -

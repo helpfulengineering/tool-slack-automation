@@ -19,5 +19,5 @@ def invoke_lambda(name, payload, invocation="Event"):
     boto3.client('lambda').invoke(
         FunctionName=os.environ.get("FUNCTION_PREFIX") + name,
         InvocationType=invocation,
-        Payload=payload
+        Payload=json.dumps(payload)
         )

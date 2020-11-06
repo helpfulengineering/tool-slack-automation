@@ -14,6 +14,10 @@ mails = airtable.Airtable(
     amazon.configuration["airtable_mails_base"],
     api_key=amazon.configuration["airtable_token"]
     )
+engagement = airtable.Airtable(
+    amazon.configuration["airtable_engagement_base"],
+    api_key=amazon.configuration["airtable_token"]
+    )
 
 
 def set_field(base, table, field, value):
@@ -70,13 +74,22 @@ def insert_volunteer_record(user, address, form):
         "Timezone": user["tz_label"],
         "Experience": form["experience"],
         "Management Interest": "leadership" in form["options"],
-        "Privacy Policy": "privacy" in form["options"],
+        "Privacy Policy": "privacy" in form["options"]
         })["id"]
     mail = mails.create("Email Addresses", {
         "Email Address": user["profile"]["email"],
-        "Volunteer Record": volunteer,
+        "Volunteer Record": volunteer
     })
     return volunteer
+
+
+def insert_event_record(user, category, action, label=""):
+    return engagement.create("Events", {
+        "User ID": user,
+        "Category": tags(engagement, "Categories", "Category", [category]),
+        "Action": tags(engagement, "Actions", "Action", [action]),
+        "Label": label
+        })["id"]
 
 
 def check_volunteer(identifier):

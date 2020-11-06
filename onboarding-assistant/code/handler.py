@@ -28,7 +28,7 @@ def handle_interactivity():
         handle_team_join({"event": action})
     elif action["type"] == "view_submission":
         # Run handle_form_submission() in the background
-        amazon.invoke_lambda("form", json.dumps(action))
+        amazon.invoke_lambda("form", action)
     elif action["type"] == "block_actions":
         if action["actions"][0]["action_id"] == "show_form":
             handle_show_form_action(action)
@@ -115,7 +115,9 @@ def handle_redirect(path):
     """Catch-all route for the link shortener."""
     if (item := shortener.expand(path)):
         link, information, visits = item
-        analytics.event(information.get("user", ""), "link", link)
+        user = information.get("user", "")
+        label = information.get("label", "")
+        analytics.event(user, "link", link, label)
         headers = {"Location": link, "Cache-Control": "no-store"}
         return make_response("Redirecting...", 302, headers)
     else:
