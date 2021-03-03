@@ -1,5 +1,5 @@
 aiobotocore==1.1.2
-aiohttp==3.6.2
+aiohttp==3.7.4
 aioitertools==0.7.0
 airtable==0.3.1
 async-timeout==3.0.1
