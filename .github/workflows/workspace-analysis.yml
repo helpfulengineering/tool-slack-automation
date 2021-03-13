@@ -1,7 +1,7 @@
 name: Update suggestion model
 on:
   schedule:
-    - cron: '0 0 * * 1'
+    - cron: '0 0 * * *'
 
 jobs:
   model:
