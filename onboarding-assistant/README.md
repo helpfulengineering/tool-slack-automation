@@ -1,5 +1,7 @@
 # Onboarding assistant
 
+⚠️ **Warning:** commits pushed to the `master` branch get automatically deployed to the production environment through AWS CodeBuild on the `he-sandbox-2` account at the `us-east-1` region.
+
 ## Common maintenance operations
 If you're in charge of updating this application and don't have prior
 experience with its internals, you may be interested in taking a look
