@@ -21,7 +21,7 @@ jobs:
         cd workspace-analysis
         pip install poetry && $_ install
         poetry run python -m examples.classifier_model \
-            --output=../onboarding-assistant/code/data/model.json \
+            --output=../onboarding-assistant/code/modules/recommendations/model.json \
             --channel-filter="(project.*|skill.*|discussion.*|hardware.*|medical.*)" \
             --channel-threshold=0.5 \
             --slack-token=${SLACK_TOKEN} \
@@ -34,8 +34,8 @@ jobs:
     - name: Commit changes
       uses: EndBug/add-and-commit@v4
       with:
-        add: "./onboarding-assistant/code/data/model.json"
-        author_name: Automatic commit from GitHub Actions
+        add: ./onboarding-assistant/code/modules/recommendations/model.json
+        author_name: Helio Machado
         author_email: 0x2b3bfa0@googlemail.com
         message: "Update suggestion model"
       env:
