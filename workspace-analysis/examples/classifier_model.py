@@ -1,8 +1,10 @@
+import os
 import re
 import csv
 import json
 import click
 import datetime
+import airtable
 
 import analysis
 import corpus
@@ -16,7 +18,7 @@ import corpus
     help="Output file."
     )
 @click.option(
-    "--token",
+    "--slack-token",
     envvar="SLACK_TOKEN",
     help="Slack user token."
     )
@@ -37,13 +39,47 @@ import corpus
     default=r".*",
     help="Exclude channels whose name don't match the regular expression."
     )
-def classifier_model(channel_threshold, channel_filter, output, token, cache):
+@click.option(
+    "--airtable-table",
+    default="",
+    help="Airtable table used for building the job model."
+    )
+@click.option(
+    "--airtable-base",
+    default="",
+    help="Airtable base used for building the job model."
+    )
+@click.option(
+    "--airtable-token",
+    default="",
+    help="Airtable token used for building the job model."
+    )
+def classifier_model(
+    airtable_base,
+    airtable_table,
+    airtable_token,
+    channel_threshold,
+    channel_filter,
+    slack_token,
+    output,
+    cache,
+):
     """Generate a classifier model for the Slack introductions bot."""
+    open_positions = airtable.Airtable(
+        airtable_base,
+        airtable_table,
+        api_key=airtable_token
+        )
+    jobs = [
+        item["fields"]
+        for page in open_positions.get_iter()
+        for item in page
+        ]
     json.dump(analysis.model(analysis.select(
-        corpus.build(token=token, refresh=not cache),
+        corpus.build(token=slack_token, refresh=not cache),
         threshold=channel_threshold,
         expression=channel_filter,
-        )), output)
+        ), jobs), output)
 
 
 if __name__ == "__main__":

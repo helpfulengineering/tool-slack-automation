@@ -7,26 +7,22 @@ and some other niceties.
 
 ### :book: Usage
 
-1. Initialize a new virtual environment: 
+1. Install the requirements: 
     ```bash
-    virtualenv virtual_environment && source $_/bin/activate
+    pip install poetry
+    poetry install
     ``` 
     
-2. Install the requirements:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
 3. Run the examples:
     ```bash
-    python -m examples.channel_list --no-cache --token xoxp-··· \
+    poetry run python -m examples.channel_list --no-cache --token xoxp-··· \
                                     --format csv --output ./channels.csv
 
-    python -m examples.classifier_model --channel-filter "(project.*|skill.*|communication.*|discussion.*|hardware.*|medical.*|legal.*|comms.*|fundraising.*)" \
+    poetry run python -m examples.classifier_model --channel-filter "(project.*|skill.*|communication.*|discussion.*|hardware.*|medical.*|legal.*|comms.*|fundraising.*)" \
                                         --channel-threshold 0.5 \
                                         --output ./model.json
 
-    python -m examples.data_visualization --output ./images_folder
+    poetry run python -m examples.data_visualization --output ./images_folder
     ```
     
 Note: the first run may take eons while gathering the information.

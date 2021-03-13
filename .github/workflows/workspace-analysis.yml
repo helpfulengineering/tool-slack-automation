@@ -1,0 +1,42 @@
+name: Update suggestion model
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  push:
+    branches:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  model:
+    name: Update suggestion model
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Install Python
+      uses: actions/setup-python@v2
+    - name: Train model
+      run: |
+        cd workspace-analysis
+        pip install poetry && $_ install
+        poetry run python -m examples.classifier_model \
+            --output=../onboarding-assistant/code/data/model.json \
+            --channel-filter="(project.*|skill.*|discussion.*|hardware.*|medical.*)" \
+            --channel-threshold=0.5 \
+            --slack-token=${SLACK_TOKEN} \
+            --airtable-token=${AIRTABLE_TOKEN} \
+            --airtable-base=appckajUfV4F3NGTw \
+            --airtable-table=Positions
+      env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v4
+      with:
+        add: "./onboarding-assistant/code/data/model.json"
+        author_name: Automatic commit from GitHub Actions
+        author_email: 0x2b3bfa0@googlemail.com
+        message: "Update suggestion model"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
