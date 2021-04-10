@@ -154,12 +154,12 @@ def handle_message(event):
 
     suggestion = "\n\n*Recommended channels*\n" + "\n".join(set(
         recommendations.channels(event["event"]["text"]) + [
-            "#skill-software-devops",
-            "#skill-medical-personnel",
-            "#skill-project-managers-office",
-            "#skill-research",
-            "#skill-software-datascience",
-            "#skill-writer"
+            "#announcements",
+            "#help-wanted",
+            "#introductions",
+            "#discussion-casual",
+            "#discussion-new-projects",
+            "#help-questions-support-feedback"
             ]
         ))
     if (jobs := "\n".join(recommendations.jobs(event["event"]["text"]))):
