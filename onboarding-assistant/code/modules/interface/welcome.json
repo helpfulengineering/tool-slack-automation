@@ -27,7 +27,28 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": ":fire: *1.* *First and foremost*, please fill the volunteer form (above)."
+				"text": ":fire: *1.* *First and foremost*, please fill the volunteer form (*above*)."
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":mag: *2.* Want to learn more? Read the <https://docs.google.com/document/d/1ucSOmR4eMEREzmAdJJRjYzQhWEzO9TnddqUnKzxWDRc/edit|Starting at Helpful> guide and check out current projects on the <https://helpful.directory/projects|Hub>."
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":people_holding_hands: *3.* Want to know how we work together? Take a peek at our <https://docs.google.com/document/d/1uxPBapZFlxBCpPjn_qAJcRyFuwFp85K4WfOxB4xjZnU/edit|community’s values>."
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":bulb: *4.* Want to start a new project? Check out the <https://www.notion.so/helpfulengineering/How-to-Start-a-New-Project-Details-996acfca626543aba57be357d4fe945b|How to Start a New Project Guide>, talk about your idea on #discussion-new-projects and ask for a new channel at #new-channel-request."
 			}
 		},
 		{
@@ -41,14 +62,7 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": ":mag: *3.* Want to learn more? Read the <https://docs.google.com/document/d/1ucSOmR4eMEREzmAdJJRjYzQhWEzO9TnddqUnKzxWDRc/edit|Starting at Helpful> guide, check out current projects on the <https://helpful.directory/projects|Hub>. Also, take a peek at our <https://docs.google.com/document/d/1uxPBapZFlxBCpPjn_qAJcRyFuwFp85K4WfOxB4xjZnU/edit|community’s values>."
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":bulb: *4.* Check out the <https://www.notion.so/helpfulengineering/How-to-Start-a-New-Project-Details-996acfca626543aba57be357d4fe945b|How to Start a New Project Guide> talk about your idea on #discussion-new-projects and ask for a new channel at #new-channel-request. (The <https://docs.google.com/document/d/1ucSOmR4eMEREzmAdJJRjYzQhWEzO9TnddqUnKzxWDRc/edit|Starting at Helpful> guide is also useful to find your way around)"
+				"text": "If you're lost, please post a message in #help-questions-support-feedback and we'll help you find your way!"
 			}
 		},
 		{
@@ -56,11 +70,7 @@
 			"elements": [
 				{
 					"type": "mrkdwn",
-					"text": "*(Should you be lost you can always revisit this screen by clicking on* @Onboarding assistant *in the future!)*"
-				},
-				{
-					"type": "mrkdwn",
-					"text": "If you're lost, please post a message in #help-questions-support-feedback and we'll help you find your way!"
+					"text": "*(You can revisit this screen by clicking on @Onboarding assistant)*"
 				}
 			]
 		}
