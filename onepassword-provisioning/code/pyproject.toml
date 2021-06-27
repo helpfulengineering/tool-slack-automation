@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "onepassword-provisioning"
+version = "0.1.0"
+description = "1Password Provisioning Bot"
+authors = ["0x2b3bfa0 <0x2b3bfa0t@googlemail.com>"]
+license = "AGPL-3.0-or-later"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+aiohttp = "3.7.4"
+async-timeout = "3.0.1"
+attrs = "19.3.0"
+boto3 = "1.13.11"
+botocore = "1.16.11"
+chardet = "3.0.4"
+docutils = "0.15.2"
+idna = "2.9"
+itsdangerous = "1.1.0"
+jmespath = "0.10.0"
+multidict = "4.7.6"
+python-dateutil = "2.8.1"
+s3transfer = "0.3.3"
+six = "1.14.0"
+slackclient = "2.5.0"
+urllib3 = "1.25.9"
+yarl = "1.4.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

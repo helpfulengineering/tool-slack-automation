@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "onboarding-assitant"
+version = "0.1.0"
+description = "Helpful Engineering Onboarding Assistant"
+authors = ["0x2b3bfa0 <0x2b3bfa0@googlemail.com>"]
+license = "AGPL-3.0-or-later"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+aiobotocore = "1.1.2"
+aiohttp = "3.7.4"
+aioitertools = "0.7.0"
+airtable = "0.3.1"
+async-timeout = "3.0.1"
+attrs = "19.3.0"
+boto3 = "1.14.1"
+botocore = "1.17.44"
+certifi = "2019.11.28"
+chardet = "3.0.4"
+click = "7.1.1"
+docutils = "0.15.2"
+Flask = "1.1.1"
+fsspec = "0.8.4"
+googlemaps = "4.4.0"
+idna = "2.9"
+itsdangerous = "1.1.0"
+Jinja2 = "2.11.3"
+jmespath = "0.9.5"
+MarkupSafe = "1.1.1"
+multidict = "4.7.5"
+pyee = "7.0.1"
+pymemcache = "3.0.1"
+python-dateutil = "2.8.1"
+pytz = "2019.3"
+requests = "2.23.0"
+s3fs = "0.5.1"
+s3transfer = "0.3.3"
+six = "1.14.0"
+slackclient = "2.5.0"
+slackeventsapi = "2.1.0"
+typing-extensions = "3.7.4.3"
+urllib3 = "1.25.8"
+Werkzeug = "1.0.0"
+wrapt = "1.12.1"
+yarl = "1.4.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
