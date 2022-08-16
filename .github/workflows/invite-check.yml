@@ -2,6 +2,7 @@ name: Slack Invite Checker
 on:
   schedule: 
   - cron: '0 */6 * * *'
+  workflow_dispatch:
 jobs:
   check:
     runs-on: ubuntu-latest
