@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check if the invite link is valid
-      run: ! grep --only-matching --extended-regexp '(&quot;|")isSharedInviteError(&quot;|")\s*:\s*true' <(curl --silent --location https://www.helpfulengineering.org/slack)
+      run: |
+        ! grep --only-matching --extended-regexp '(&quot;|")isSharedInviteError(&quot;|")\s*:\s*true' <(curl --silent --location https://www.helpfulengineering.org/slack)
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2.1.0
       env:
