@@ -1,34 +1,29 @@
 name: Slack Invite Checker
-
 on:
   schedule: 
-    - cron: '0 */6 * * *'
-
+  - cron: '0 */6 * * *'
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if the invite link is valid
-        run: |
-          ! grep -Eo '(&quot;|")isSharedInviteError(&quot;|")\s*:\s*true' <(
-              curl --silent --location https://www.helpfulengineering.org/slack
-          )
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2.1.0
-        env:
-          SLACK_CHANNEL: 'skill-software-devops'
-          SLACK_COLOR: 'warning'
-          SLACK_ICON: ':warning:'
-          SLACK_MESSAGE: |
-            Our <https://www.helpfulengineering.org/slack|public invite link> is down and needs to be manually updated:
-            1. <https://slack.com/intl/en-es/help/articles/201330256-Invite-new-members-to-your-workspace#share-an-invite-link|Generate a new link> without expiry date; you may need to deactivate the previous one first.
-            2. Update the permanent redirect link <https://www.helpfulengineering.org/wp-admin/options-general.php?page=eps_redirects|on the administration dashboard> by using <https://start.1password.com/open/i?a=J3YBD4VIJZGH3ORXYSVY6UUFXY&h=helpfulengineering.1password.com&i=5vsbwaf2gk6n7ffyp6ycv3alhe&v=g26sfhnu37jcyc3lbwkbbzlr6i|these credentials> and then click the [refresh cache] button.
-            :robot_face: Carbon copy to <@U010GTB1X8Q>
-          SLACK_FOOTER: |
-            <https://github.com/helpfulengineering/tool-slack-automation/blob/master/.github/workflows/slack-invite-check.yml|Click this text if you want to change the bot behavior.>
-          SLACK_TITLE: 'Slack invite link is down'
-          SLACK_USERNAME: 'Invite link checker'
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          MSG_MINIMAL: true
-        if: ${{ failure() }}
+    - name: Check if the invite link is valid
+      run: ! grep --only-matching --extended-regexp '(&quot;|")isSharedInviteError(&quot;|")\s*:\s*true' <(curl --silent --location https://www.helpfulengineering.org/slack)
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2.1.0
+      env:
+        SLACK_CHANNEL: devops
+        SLACK_COLOR: warning
+        SLACK_ICON: ':warning:'
+        SLACK_MESSAGE: |
+          Our <https://www.helpfulengineering.org/slack|public invite link> is down and needs to be manually updated:
+          1. <https://slack.com/intl/en-es/help/articles/201330256-Invite-new-members-to-your-workspace#share-an-invite-link|Generate a new link> without expiry date; you may need to deactivate the previous one first. Don’t forget to configure your invite link so it does not send [you] a message whenever a new user joins.
+          2. Update the permanent redirect link <https://www.helpfulengineering.org/wp-admin/options-general.php?page=eps_redirects|on the administration dashboard> by using <https://start.1password.com/open/i?a=J3YBD4VIJZGH3ORXYSVY6UUFXY&h=helpfulengineering.1password.com&i=5vsbwaf2gk6n7ffyp6ycv3alhe&v=g26sfhnu37jcyc3lbwkbbzlr6i|these credentials> and then click the `[refresh cache]` button.
+          :robot_face: Carbon copy to <@U0103B34HGR>
+        SLACK_FOOTER: |
+          <https://github.com/helpfulengineering/tool-slack-automation/blob/master/.github/workflows/invite-check.yml|Click this text if you want to change the bot behavior.>
+        SLACK_TITLE: Slack invite link is down
+        SLACK_USERNAME: Invite link checker
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        MSG_MINIMAL: true
+      if: ${{ failure() }}
 
