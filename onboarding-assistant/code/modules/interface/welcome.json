@@ -4,7 +4,7 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": ":wave: *Hi <@{user}>! we're happy you're here!*"
+				"text": ":wave: *Hi <@{user}>! We're happy you're here!*"
 			}
 		},
 		{
@@ -34,28 +34,14 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": ":mag: *2.* Want to learn more? Read the <https://docs.google.com/document/d/1ucSOmR4eMEREzmAdJJRjYzQhWEzO9TnddqUnKzxWDRc/edit|Starting at Helpful> guide and check out current projects on the <https://helpful.directory/projects|Hub>."
+				"text": ":mag: *2.* Want to learn more? Read the *RESEARCH* section on our <https://helpfulengineering.org|website>."
 			}
 		},
 		{
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": ":people_holding_hands: *3.* Want to know how we work together? Take a peek at our <https://docs.google.com/document/d/1uxPBapZFlxBCpPjn_qAJcRyFuwFp85K4WfOxB4xjZnU/edit|community’s values>."
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":bulb: *4.* Want to start a new project? Check out the <https://www.notion.so/helpfulengineering/How-to-Start-a-New-Project-Details-996acfca626543aba57be357d4fe945b|How to Start a New Project Guide>, talk about your idea on #discussion-new-projects and ask for a new channel at #new-channel-request."
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":hammer_and_wrench: *4.* Have manufacturing or prototyping resources? Please complete the <https://docs.google.com/forms/d/e/1FAIpQLSfCzXLp4cvlgBFh1OR81-Kek6SAGnNC8jJQcHyBUJbPSIvXgA/viewform|Manufacturer Database form> too."
+				"text": ":bulb: *3.* Want to start a new project? Please email us at <mailto:projects@helpfulengineering.org|projects@helpfulengineering.org>."
 			}
 		},
 		{
