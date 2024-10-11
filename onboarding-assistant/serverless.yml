@@ -91,7 +91,7 @@ functions:
     warmup: true
     handler: code/menu/handler.menu
     memorySize: 128
-    runtime: nodejs12.x
+    runtime: nodejs18.x
 
 resources:
   Resources:
