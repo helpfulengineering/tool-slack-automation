@@ -117,6 +117,7 @@ custom:
     createRoute53Record: true
   pythonRequirements:
     dockerizePip: true
+    usePoetry: false
     fileName: code/requirements.txt
     vendor: code/modules
   wsgi:
