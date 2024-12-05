@@ -1,4 +1,5 @@
 service: onboarding-assistant
+frameworkVersion: '^3.0.0'
 
 plugins:
   - serverless-domain-manager
@@ -88,7 +89,9 @@ functions:
           method: any
           path: /search
           integration: lambda
-    warmup: true
+    warmup:
+      default:
+        enabled: true
     handler: code/menu/handler.menu
     memorySize: 128
     runtime: nodejs18.x
@@ -120,6 +123,9 @@ custom:
     usePoetry: false
     fileName: code/requirements.txt
     vendor: code/modules
+  warmup:
+    default:
+      enabled: false
   wsgi:
     app: code/handler.application
     packRequirements: false

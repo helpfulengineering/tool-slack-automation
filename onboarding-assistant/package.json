@@ -7,10 +7,10 @@
     "@googlemaps/google-maps-services-js": "^2.6.1",
     "aws-sdk": "^2.680.0",
     "fuzzaldrin-plus": "^0.6.0",
-    "serverless-plugin-warmup": "^6.0.0",
-    "serverless-prune-plugin": "^1.4.2",
-    "serverless-python-requirements": "^5.1.0",
-    "serverless-wsgi": "^1.7.4"
+    "serverless-plugin-warmup": "^8.3.0",
+    "serverless-prune-plugin": "^2.1.0",
+    "serverless-python-requirements": "^5.4.0",
+    "serverless-wsgi": "^3.0.5"
   },
   "description": "Slack onboarding assistant bot",
   "homepage": "https://github.com/helpfulengineering/tool-slack-automation#readme",
@@ -26,6 +26,6 @@
   },
   "version": "0.1.5",
   "devDependencies": {
-    "serverless-domain-manager": "^5.0.0"
+    "serverless-domain-manager": "^7.4.0"
   }
 }
