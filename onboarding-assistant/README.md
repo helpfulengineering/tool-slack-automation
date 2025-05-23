@@ -40,6 +40,8 @@ You will need this value to configure Slack interactivity and subscriptions
 * Under the **Select Menus** heading ensure that the **Options Load URL** field us using the API Gateway Base URL defined above with a `/production/search` suffix
   * Should look something like `https://API_ID_HERE.execute-api.us-east-1.amazonaws.com/production/search`
 
+⚠️ **NOTE:** clicking the form button requires a response within 3 seconds, ensure the interactivity endpoint is responsive -- may require adjusting cold start settings including the warmup function to make sure this works consistently
+
 #### Ensure Event Subscriptions is enabled
 
 * Navigate to [Event Subscriptions](https://api.slack.com/apps/A010YT72ADN/event-subscriptions?)
