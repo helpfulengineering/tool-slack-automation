@@ -68,6 +68,9 @@ functions:
         http:
           method: any
           path: /interactivity
+    warmup:
+      default:
+        enabled: true
     handler: wsgi_handler.handler
     memorySize: 128
     runtime: python3.12
