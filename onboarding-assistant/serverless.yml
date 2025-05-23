@@ -120,7 +120,7 @@ custom:
     createRoute53Record: true
   pythonRequirements:
     dockerizePip: true
-    dockerImage: python:3.12
+    dockerImage: python:3.12-bookworm # needed for gcc for deps like yarl
     usePoetry: false
     fileName: code/requirements.txt
     vendor: code/modules
