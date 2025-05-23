@@ -1,6 +1,6 @@
 # Onboarding assistant
 
-⚠️ **Warning:** commits pushed to the `master` branch get automatically deployed to the production environment through AWS CodeBuild on the `he-sandbox2` account at the `us-east-1` region.
+⚠️ **Warning:** commits pushed to the `master` branch get automatically deployed to the production environment through AWS CodeBuild on the `he-sandbox2` account at the `us-east-1` region. If too many builds are done in a short timeframe, Serverless framework images may get throttled by Docker registry leading to rate exceeded errors.
 
 ## Common maintenance operations
 If you're in charge of updating this application and don't have prior
