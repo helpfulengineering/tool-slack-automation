@@ -1,6 +1,6 @@
 # Onboarding assistant
 
-⚠️ **Warning:** commits pushed to the `master` branch get automatically deployed to the production environment through AWS CodeBuild on the `he-sandbox2` account at the `us-east-1` region.
+⚠️ **Warning:** commits pushed to the `master` branch get automatically deployed to the production environment through AWS CodeBuild on the `he-sandbox2` account at the `us-east-1` region. If too many builds are done in a short timeframe, Serverless framework images may get throttled by Docker registry leading to rate exceeded errors.
 
 ## Common maintenance operations
 If you're in charge of updating this application and don't have prior
@@ -39,6 +39,8 @@ You will need this value to configure Slack interactivity and subscriptions
   * Should look something like `https://API_ID_HERE.execute-api.us-east-1.amazonaws.com/production/interactivity`
 * Under the **Select Menus** heading ensure that the **Options Load URL** field us using the API Gateway Base URL defined above with a `/production/search` suffix
   * Should look something like `https://API_ID_HERE.execute-api.us-east-1.amazonaws.com/production/search`
+
+⚠️ **NOTE:** clicking the form button requires a response within 3 seconds, ensure the interactivity endpoint is responsive -- may require adjusting cold start settings including the warmup function to make sure this works consistently
 
 #### Ensure Event Subscriptions is enabled
 
