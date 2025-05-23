@@ -120,6 +120,7 @@ custom:
     createRoute53Record: true
   pythonRequirements:
     dockerizePip: true
+    dockerImage: public.ecr.aws/lambda/python:3.12
     usePoetry: false
     fileName: code/requirements.txt
     vendor: code/modules
