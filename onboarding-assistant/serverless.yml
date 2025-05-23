@@ -34,7 +34,7 @@ provider:
       Resource: "*"
   name: aws
   region: us-east-1
-  runtime: python3.8
+  runtime: python3.11
   stage: ${opt:stage, "production"}
   environment:
     SECRET_ARN: "${env:SECRET_ARN}"
@@ -45,12 +45,12 @@ functions:
   form:
     handler: code/handler.handle_form_submission
     memorySize: 128
-    runtime: python3.8
+    runtime: python3.11
     timeout: 25
   analytics:
     handler: analytics.event_worker
     memorySize: 128
-    runtime: python3.8
+    runtime: python3.11
     timeout: 25
   events:
     events:
@@ -60,7 +60,7 @@ functions:
           path: /events
     handler: wsgi_handler.handler
     memorySize: 128
-    runtime: python3.8
+    runtime: python3.11
     timeout: 25
   interactivity:
     events:
@@ -70,7 +70,7 @@ functions:
           path: /interactivity
     handler: wsgi_handler.handler
     memorySize: 128
-    runtime: python3.8
+    runtime: python3.11
     timeout: 25
   shortener:
     events:
@@ -80,7 +80,7 @@ functions:
           path: /{any+}
     handler: wsgi_handler.handler
     memorySize: 128
-    runtime: python3.8
+    runtime: python3.11
     timeout: 25
   menu:
     events:
