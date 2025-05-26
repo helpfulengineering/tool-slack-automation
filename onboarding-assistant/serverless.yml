@@ -51,11 +51,15 @@ functions:
     memorySize: 128
     runtime: python3.12
     timeout: 25
+    exclude:
+    - node_modules/**
   analytics:
     handler: analytics.event_worker
     memorySize: 128
     runtime: python3.12
     timeout: 25
+    exclude:
+    - node_modules/**
   events:
     events:
       -
@@ -66,6 +70,8 @@ functions:
     memorySize: 128
     runtime: python3.12
     timeout: 25
+    exclude:
+    - node_modules/**
   interactivity:
     events:
       -
@@ -79,6 +85,8 @@ functions:
     memorySize: 128
     runtime: python3.12
     timeout: 25
+    exclude:
+    - node_modules/**
   shortener:
     events:
       -
@@ -89,6 +97,8 @@ functions:
     memorySize: 128
     runtime: python3.12
     timeout: 25
+    exclude:
+    - node_modules/**
   menu:
     events:
       -
