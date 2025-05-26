@@ -8,6 +8,10 @@ plugins:
   - serverless-plugin-warmup
   - serverless-wsgi
 
+package:
+  individually: true
+  excludeDevDependencies: true
+
 provider:
   iamRoleStatements:
     -
