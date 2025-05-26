@@ -127,7 +127,6 @@ custom:
     usePoetry: false
     fileName: code/requirements.txt
     vendor: code/modules
-    layer: true
   warmup:
     default:
       enabled: false
