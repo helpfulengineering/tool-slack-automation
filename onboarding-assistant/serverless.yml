@@ -8,6 +8,10 @@ plugins:
   - serverless-plugin-warmup
   - serverless-wsgi
 
+package:
+  individually: true
+  excludeDevDependencies: true
+
 provider:
   iamRoleStatements:
     -
@@ -47,11 +51,17 @@ functions:
     memorySize: 128
     runtime: python3.12
     timeout: 25
+    package:
+      patterns:
+        - '!node_modules/**' # Exclude node_modules
   analytics:
     handler: analytics.event_worker
     memorySize: 128
     runtime: python3.12
     timeout: 25
+    package:
+      patterns:
+        - '!node_modules/**' # Exclude node_modules
   events:
     events:
       -
@@ -62,6 +72,9 @@ functions:
     memorySize: 128
     runtime: python3.12
     timeout: 25
+    package:
+      patterns:
+        - '!node_modules/**' # Exclude node_modules
   interactivity:
     events:
       -
@@ -75,6 +88,9 @@ functions:
     memorySize: 128
     runtime: python3.12
     timeout: 25
+    package:
+      patterns:
+        - '!node_modules/**' # Exclude node_modules
   shortener:
     events:
       -
