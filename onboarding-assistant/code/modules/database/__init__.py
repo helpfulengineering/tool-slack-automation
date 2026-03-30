@@ -1,100 +1,65 @@
-"""Airtable database driver and volunteer record ingestor.
-This module exposes high-level functions for storing volunteer records.
->>>
+"""Database facade for the onboarding assistant.
+
+This module provides a provider-agnostic interface for the app. It
+routes reads and writes to the configured backend and supports feature
+flag-style write-through for migration.
 """
-from airtable import airtable
-import amazon
+
+import os
+
+from . import airtable, sheets
 
 
-volunteers = airtable.Airtable(
-    amazon.configuration["airtable_volunteers_base"],
-    api_key=amazon.configuration["airtable_token"]
-    )
-mails = airtable.Airtable(
-    amazon.configuration["airtable_mails_base"],
-    api_key=amazon.configuration["airtable_token"]
-    )
-engagement = airtable.Airtable(
-    amazon.configuration["airtable_engagement_base"],
-    api_key=amazon.configuration["airtable_token"]
-    )
+BACKENDS = {
+    "airtable": airtable,
+    "sheets": sheets
+}
 
 
-def set_field(base, table, field, value):
-    return base.create(table, {field: value})["id"]
+DATA_BACKEND = os.environ.get("DATA_BACKEND", "airtable").lower()
+WRITE_BACKENDS = [
+    backend.strip().lower()
+    for backend in os.environ.get("WRITE_BACKENDS", DATA_BACKEND).split(",")
+    if backend.strip()
+]
 
 
-def get_records(base, table, field, value):
-    filter = {"filter_by_formula": filter_formula(field, value)}
-    return base.get(table, **filter)["records"]
+def _backend(name):
+    try:
+        return BACKENDS[name]
+    except KeyError as exc:
+        raise ValueError(
+            f"Unsupported database backend: {name}. "
+            f"Available backends: {', '.join(BACKENDS)}"
+        ) from exc
 
 
-def tags(base, table, field, values):
-    response=[]
-    for value in values:
-        response += [
-            records[0]["id"]
-            if (records := get_records(base, table, field, value)) else
-            set_field(base, table, field, value)
-            ]
-    return list(set(response))
+def _primary():
+    return _backend(DATA_BACKEND)
 
 
-def filter_formula(field, value):
-    """Creates an Airtable filter formula that returns fields == value."""
-    field = field.replace("{", r"\{").replace("}", r"\}")
-    value = value.replace("'", r"\'").replace("\\", "\\\\")
-    return f"{{{field}}} = '{value}'"
+def _write_backends():
+    return [_backend(name) for name in WRITE_BACKENDS]
+
+
+def _read(method, *args, **kwargs):
+    return getattr(_primary(), method)(*args, **kwargs)
+
+
+def _write(method, *args, **kwargs):
+    result = None
+    for backend in _write_backends():
+        result = getattr(backend, method)(*args, **kwargs)
+    return result
 
 
 def insert_volunteer_record(user, address, form):
-    volunteer = volunteers.create("Volunteers", {
-        "Slack Handle": (
-            user["profile"]["display_name_normalized"] or
-            user["profile"]["real_name_normalized"]
-            ),
-        "Slack User ID": user["id"],
-        "Profession": form["profession"],
-        "External Organization": form.get("organization", ""),
-        "LinkedIn Profile": form.get("linkedin", ""),
-        "Weekly Capacity (new)": int(form["availability"].pop()),
-        "Skills": tags(volunteers, "Skills", "Name", form["skills"]),
-        "Languages": tags(volunteers, "Languages", "Language", form["languages"]),
-        "Industry": tags(volunteers, "Industries", "Name", form["industries"]),
-        "City": (
-            address.get("locality") or
-            address.get("administrative_area_level_2", "")
-            ),
-        "Country (new)": address.get("country", ""),
-        "State/Province": address.get("administrative_area_level_1", ""),
-        "Zip Code": address.get("postal_code", ""),
-        "Geolocation": address.get("address", ""),
-        "Geocode": ", ".join(map(str, address.get("location", []))),
-        "Volunteer Interest": True,
-        "Timezone": user["tz_label"],
-        "Experience": form["experience"],
-        "Management Interest": "leadership" in form["options"],
-        "Privacy Policy": "privacy" in form["options"]
-        })["id"]
-    mail = mails.create("Email Addresses", {
-        "Email Address": user["profile"]["email"],
-        "Volunteer Record": volunteer
-    })
-    return volunteer
+    return _write("insert_volunteer_record", user, address, form)
 
 
 def insert_event_record(user, category, action, label=""):
-    return engagement.create("Events", {
-        "User ID": user,
-        "Category": tags(engagement, "Categories", "Category", [category]),
-        "Action": tags(engagement, "Actions", "Action", [action]),
-        "Label": label
-        })["id"]
+    return _write("insert_event_record", user, category, action, label)
 
 
 def check_volunteer(identifier):
-    """Checks if there is any volunteer with the given Slack identifier."""
-    return volunteers.get(
-        "Volunteers",
-        filter_by_formula=filter_formula("Slack User ID", identifier)
-        )["records"]
+    return _read("check_volunteer", identifier)
